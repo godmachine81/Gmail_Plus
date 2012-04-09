@@ -1,0 +1,1535 @@
+{
+   "200": {
+      "message": "Intermittent problem, please try again!"
+   },
+   "24hourMode": {
+      "message": "24 hour time display"
+   },
+   "24hourModeTitle": {
+      "message": "Show time in 24 hour ie. 18:00"
+   },
+   "401": {
+      "message": "Unauthorized!"
+   },
+   "403": {
+      "message": "The email or password you entered is incorrect."
+   },
+   "LAST_ITEM_DO_NOT_REMOVE": {
+      "message": "DO NOT REMOVE"
+   },
+   "NAME_says": {
+      "message": "$1 says"
+   },
+   "Xday": {
+      "message": "day"
+   },
+   "Xdays": {
+      "message": "$1 days"
+   },
+   "Xhour": {
+      "message": "$1 hour"
+   },
+   "Xhours": {
+      "message": "$1 hours"
+   },
+   "Xminute": {
+      "message": "$1 minute"
+   },
+   "Xminutes": {
+      "message": "$1 minutes"
+   },
+   "Xseconds": {
+      "message": "$1 seconds"
+   },
+   "aboutMe": {
+      "message": "About me"
+   },
+   "account": {
+      "message": "Account"
+   },
+   "accounts": {
+      "message": "Accounts"
+   },
+   "actionButtons": {
+      "message": "Action buttons for popup and advanced notification window"
+   },
+   "addCalendar": {
+      "message": "Add Calendar"
+   },
+   "addCalendarTitle": {
+      "message": "Add Calendar via Private URL"
+   },
+   "addSpeechEngines": {
+      "message": "Add speech engines"
+   },
+   "addToGoogleCalendar": {
+      "message": "Add to Google Calendar"
+   },
+   "addedForSomeday": {
+      "message": "Added $1 for $2"
+   },
+   "addedForSomedayAt": {
+      "message": "Added $1 for $2 at $3"
+   },
+   "addedForToday": {
+      "message": "Added $1 for today"
+   },
+   "addedForTodayAt": {
+      "message": "Added $1 for $2"
+   },
+   "addedForTomorrow": {
+      "message": "Added $1 for tomorrow"
+   },
+   "addedForTomorrowAt": {
+      "message": "Added $1 for tomorrow at $2"
+   },
+   "addedTimedEventInThePast": {
+      "message": "The time of this event has already passed! Would you like me to change it to the same time tomorrow?"
+   },
+   "advancedNotification": {
+      "message": "Advanced notification window"
+   },
+   "advancedNotificationToolTip": {
+      "message": "Notifies you of ALL unread emails, read the whole email or delete it without opening your browser or a Gmail tab! Essentially brings the functionality of the top popup window into the bottom notification window!"
+   },
+   "advancedNotificationTryItOut": {
+      "message": "Test it out!"
+   },
+   "advancedNotificationTryItOutInstructions": {
+      "message": "Mark one (or more) of your emails as unread then click here and wait to see the advanced notification window and try out the email preview by clicking on an email summary!"
+   },
+   "agenda": {
+      "message": "Agenda"
+   },
+   "agendaOnly": {
+      "message": "Agenda only"
+   },
+   "alertMe": {
+      "message": "or alert me..."
+   },
+   "all": {
+      "message": "All"
+   },
+   "allMail": {
+      "message": "All mail"
+   },
+   "alreadyDonated": {
+      "message": "Already donated?"
+   },
+   "alsoExtraFeaturesForGoogleCalendar": {
+      "message": "Donate once and also unlock the extra features of my $1"
+   },
+   "alsoExtraFeaturesForGoogleCalendar2": {
+      "message": ""
+   },
+   "alsoTryMy": {
+      "message": "Also try my"
+   },
+   "amount": {
+      "message": "Amount"
+   },
+   "andMyExtensions": {
+      "message": "and my extensions"
+   },
+   "archiveLink": {
+      "message": "Archive"
+   },
+   "archiveLinkTitle": {
+      "message": "Archive mail"
+   },
+   "archive_read": {
+      "message": "Archive marks as read"
+   },
+   "archive_readToolTip": {
+      "message": "Mark a mail as read when you archive it"
+   },
+   "autoDetectAccounts": {
+      "message": "This app will auto-detect the accounts you're signed into."
+   },
+   "back": {
+      "message": "Back"
+   },
+   "backToInbox": {
+      "message": "Back to Inbox"
+   },
+   "backgroundOfNotification": {
+      "message": "Background color of notification popup"
+   },
+   "backgroundOfNotificationTooltip": {
+      "message": "Sets the background color of notification popup"
+   },
+   "button": {
+      "message": "Button"
+   },
+   "buttonClickAction": {
+      "message": "Button click action"
+   },
+   "byEmailSubject": {
+      "message": "by email subject?"
+   },
+   "calendar": {
+      "message": "Calendar"
+   },
+   "calendarHelper": {
+      "message": "Calendar Helper"
+   },
+   "calendarViewAgenda": {
+      "message": "Calendar view: Agenda"
+   },
+   "calendarViewAgendaTitle": {
+      "message": "When clicking on the calendar icon this will show you a small calendar with the events below in an agenda format"
+   },
+   "calendarViewRegular": {
+      "message": "Calendar view: Regular "
+   },
+   "calendarViewRegularTitle": {
+      "message": "When clicking on the calendar icon this will show you a calendar with the events marked within the calendar"
+   },
+   "calendarViewTitle": {
+      "message": "Select your default calendar view"
+   },
+   "canceledInAppPurchase": {
+      "message": "Try PayPal instead? or contact me for questions at "
+   },
+   "cannotUpdateEventsInThePast": {
+      "message": "Problem occured! I currently cannot update events that happened in the past, I can update events today or in the immediate future. You can use the Google Calendar webpage for past events!"
+   },
+   "changeTheme": {
+      "message": "Change themes"
+   },
+   "changeThisDomain": {
+      "message": "To change this email domain now $1"
+   },
+   "changeThisDomain2": {
+      "message": "sign out and sign in as a different user"
+   },
+   "changeView": {
+      "message": "Change view"
+   },
+   "changingIcon": {
+      "message": "Changing icon"
+   },
+   "chime": {
+      "message": "Chime"
+   },
+   "choosePaymentMethod": {
+      "message": "Choose a credit card payment method"
+   },
+   "clearCache": {
+      "message": "Clear extension cache"
+   },
+   "clickToPreviewEmail": {
+      "message": "Click to preview email"
+   },
+   "close": {
+      "message": "Close"
+   },
+   "closeAfterX": {
+      "message": "Close after"
+   },
+   "closePopupsAfterAWhile": {
+      "message": "Dismiss notifications automatically after"
+   },
+   "closePopupsAfterAWhileTitle": {
+      "message": "Popup notifications will close automatically after X time"
+   },
+   "commaSeparatedEmails": {
+      "message": "comma separated ie."
+   },
+   "compose": {
+      "message": "Compose"
+   },
+   "composeLinkTitle": {
+      "message": "Compose new mail"
+   },
+   "contact": {
+      "message": "contact"
+   },
+   "contactHelp": {
+      "message": "Contact - Help"
+   },
+   "continue": {
+      "message": "Continue"
+   },
+   "continueWithoutFeatures": {
+      "message": "Continue using this extension with lots of options but without these extra features."
+   },
+   "continueWithoutFeaturesHeader": {
+      "message": "Continue without extra features"
+   },
+   "contributeToContinue": {
+      "message": "Make a contribution"
+   },
+   "conversationView": {
+      "message": "Conversation view"
+   },
+   "conversationViewToolTip": {
+      "message": "Sets whether emails of the same topic are grouped together"
+   },
+   "copyPrivateAddress": {
+      "message": "Copy the Private Address (XML) of a calendar to the clipboard."
+   },
+   "copyPrivateAddressTitle": {
+      "message": "In your Google Calendar page on the left is your calendar list, click on the down-arrow button next to the calendar of your choice, then select Calendar settings. Beside 'Private Address' select XML and copy the address to the clipboard. Note: If you can't find the 'Private Address' then at the domain admin-level you must change service-settings of the calendar"
+   },
+   "countryCode": {
+      "message": "USA"
+   },
+   "createDeleteEvents": {
+      "message": "Creating or deleting events within the month view"
+   },
+   "createEvent": {
+      "message": "Create event"
+   },
+   "creditCardOrPaypal": {
+      "message": "You can use your credit card or PayPal to"
+   },
+   "currencyCode": {
+      "message": "USD"
+   },
+   "currencyCodeForGoogleCheckout": {
+      "message": "USD"
+   },
+   "currencySymbol": {
+      "message": "$"
+   },
+   "currencySymbolForGoogleCheckout": {
+      "message": "$"
+   },
+   "currentPage": {
+      "message": "current page"
+   },
+   "custom": {
+      "message": "Custom"
+   },
+   "customizeCalendar": {
+      "message": "Change the height, width, visible calendars, colors, etc."
+   },
+   "customizeCalendarTitle": {
+      "message": "In the popup calendar you must set the 'View' to 'Customize'"
+   },
+   "customized": {
+      "message": "Customize"
+   },
+   "d": {
+      "message": "d"
+   },
+   "dark": {
+      "message": "Dark"
+   },
+   "darkToolTip": {
+      "message": "Dark contrast"
+   },
+   "dayAgo": {
+      "message": "$1 day ago"
+   },
+   "daysAgo": {
+      "message": "$1 days ago"
+   },
+   "daysLeft": {
+      "message": "$1 days left"
+   },
+   "delete": {
+      "message": "Delete"
+   },
+   "deleteLink": {
+      "message": "Delete"
+   },
+   "deleteLinkTitle": {
+      "message": "Delete mail"
+   },
+   "description": {
+      "message": "Displays new emails and the sender's contact photo, get desktop notifications or even listen, read or delete them without opening a Google Mail tab! Plus many options."
+   },
+   "developingMore": {
+      "message": "and I'm working on more of your suggestions..."
+   },
+   "ding": {
+      "message": "Ding"
+   },
+   "dismiss": {
+      "message": "Dismiss"
+   },
+   "dismissAll": {
+      "message": "Dismiss All"
+   },
+   "display": {
+      "message": "Display"
+   },
+   "doNotShowNotificationsForAlldayEvents": {
+      "message": "Do not show notifications for all day events"
+   },
+   "doNotShowNotificationsForAlldayEventsTitle": {
+      "message": "Do not show notifications for all day events"
+   },
+   "doNotShowNotificationsWhenBrowserClosed": {
+      "message": "Do not show notifications when browser window is closed"
+   },
+   "doNotShowNotificationsWhenBrowserClosedTooltip": {
+      "message": "Your Chrome browser will still run in the background with a tray in the icon, BUT, the notifications will NOT be shown!"
+   },
+   "doNotShowPastNotifications": {
+      "message": "Do not show notifications for events in the past"
+   },
+   "doNotShowPastNotificationsTitle": {
+      "message": "Do not show all notifications which occurred before you opened your browser. Useful when changing computers often"
+   },
+   "donate": {
+      "message": "Donate"
+   },
+   "donateButton": {
+      "message": "https://www.paypal.com/en_US/i/btn/btn_donate_SM.gif"
+   },
+   "donationRequired": {
+      "message": "Donation required"
+   },
+   "drawAttentionToBrowser": {
+      "message": "Blink Chrome in the taskbar on Windows or bounce the Chrome icon on a Mac (Beta)"
+   },
+   "drawAttentionToBrowserTooltip": {
+      "message": "This will happen only if the focus is not on the browser. Useful if using multiple workspaces... in Windows: Blinks Chrome application in the taskbar. On Mac: Bounces the Chrome icon"
+   },
+   "editEventDetails": {
+      "message": "Edit event"
+   },
+   "email": {
+      "message": "Email:"
+   },
+   "emailFrom_NAME": {
+      "message": "Email from $1"
+   },
+   "enableLanguageDetection": {
+      "message": "Detect language in email"
+   },
+   "enableLanguageDetectionToolTip": {
+      "message": "Speak in the language that is detected in the email by using the detectlanguage.com service!"
+   },
+   "enablePrivateAddressTitle": {
+      "message": "Go to calendar service settings section in the control panels, then select 'Share all information, and outsiders can change calendars' option"
+   },
+   "enterATitle": {
+      "message": "You must enter a title!"
+   },
+   "enterAnAmount": {
+      "message": "You must enter an amount!"
+   },
+   "errorAddingEvent": {
+      "message": "Error adding event! Possibly due to no internet connection!"
+   },
+   "errorGettingCalendar": {
+      "message": "Problem getting calendar, check the URL and try again! (Error: $1)"
+   },
+   "errorGettingCalendarUnauthorized": {
+      "message": "Unauthorized! You must first sign in to your Google Apps Calendar by opening a new tab"
+   },
+   "eventAdded": {
+      "message": "Event added"
+   },
+   "eventCreated": {
+      "message": "Event created"
+   },
+   "eventDeleted": {
+      "message": "Event deleted"
+   },
+   "eventDescription": {
+      "message": "Description"
+   },
+   "eventUpdated": {
+      "message": "Your event was updated"
+   },
+   "eventsAndSnoozes": {
+      "message": "Events and snoozes"
+   },
+   "ex": {
+      "message": "e.g."
+   },
+   "example": {
+      "message": "example"
+   },
+   "excludeCalendar": {
+      "message": "Exclude calendar"
+   },
+   "excludeCalendarFrom": {
+      "message": "Exclude calendars from"
+   },
+   "excludeCalendarFrom2": {
+      "message": "agenda and calendar view"
+   },
+   "excludeCalendarFrom3": {
+      "message": "button icon and notifications"
+   },
+   "excludeCalendarFromTitle": {
+      "message": "Click 'view' to hide specific calendars from your calendar/agenda view or click 'checking' to exclude events from the button icon and notifications from specific calendars"
+   },
+   "excludeCalendarsCheckboxChecking": {
+      "message": "Please click the link on the right in this option"
+   },
+   "excludeRecurringEventsButtonIcon": {
+      "message": "Exclude repeating events from button icon"
+   },
+   "excludeRecurringEventsButtonIconTooltip": {
+      "message": "Any events set to be repeated will not show up in the button icon BUT you will still receive their notifications"
+   },
+   "excluded": {
+      "message": "Excluded"
+   },
+   "extraFeatures": {
+      "message": "Extra features"
+   },
+   "failureWithInAppPurchase": {
+      "message": "Canceled or failure with transaction! Try PayPal instead?"
+   },
+   "failureWithPayPalPurchase": {
+      "message": "Canceled or failure with transaction! Try Google Checkout instead?"
+   },
+   "fetchContactsEvery": {
+      "message": "Fetch contacts every"
+   },
+   "fetchContactsIntervalToolTip": {
+      "message": "Set this to higher value if you have a lot of contacts or a slow internet"
+   },
+   "forProblemSolving": {
+      "message": "For problem solving only"
+   },
+   "forSuggestions": {
+      "message": "for suggestions or find out more"
+   },
+   "forever": {
+      "message": "Forever"
+   },
+   "fullLinkTitle": {
+      "message": "Show full message"
+   },
+   "general": {
+      "message": "General"
+   },
+   "googleAppsCalendars": {
+      "message": "Google Apps Calendars"
+   },
+   "googleAppsCalendarsForce": {
+      "message": "Force Google's multiple sign-in to always default to your Google Apps Calendars"
+   },
+   "googleAppsCalendarsTitle": {
+      "message": "Only check this if you have and want to use your Google Apps for Businesses or Education Calendar. Note, this will disable the regular Google Calendar checking!"
+   },
+   "googleAppsNote": {
+      "message": "This will disable the regular Google Calendar checking"
+   },
+   "grantAccessAgain": {
+      "message": "Grant access again"
+   },
+   "grantAccessAgainToolTip": {
+      "message": "Useful only if you have multiple sign-in accounts and you want to grant permission to each one for the photos"
+   },
+   "grantedTo": {
+      "message": "Granted to"
+   },
+   "green": {
+      "message": "Green"
+   },
+   "greenToolTip": {
+      "message": "My recycling theme!"
+   },
+   "h": {
+      "message": "h"
+   },
+   "hearEmailMessage": {
+      "message": "Hear email message"
+   },
+   "hearEmailSubject": {
+      "message": "Hear email subject"
+   },
+   "helpMeTranslate": {
+      "message": "Can you help me with the translations? $1 the correct ones!"
+   },
+   "helpMeTranslate2": {
+      "message": "Email me"
+   },
+   "helpSupport": {
+      "message": "to help support the author of this extension!"
+   },
+   "hideUnreadCount": {
+      "message": "Hide unread mail count"
+   },
+   "hideUnreadCountToolTip": {
+      "message": "Hide the unread count number from the browser action icon"
+   },
+   "highlightCurrentDay": {
+      "message": "Highlight current day"
+   },
+   "highlightCurrentDayTooltip": {
+      "message": "When you see the calendar in month view the current day will briefly pulsate"
+   },
+   "highlightWeekends": {
+      "message": "Highlight weekends"
+   },
+   "highlightWeekendsTitle": {
+      "message": "Lightly shades the weekend days, but, only in 'Regular' month calendar view"
+   },
+   "hourAgo": {
+      "message": "$1 hour ago"
+   },
+   "hours": {
+      "message": "hours"
+   },
+   "hoursAgo": {
+      "message": "$1 hours ago"
+   },
+   "hoursLeft": {
+      "message": "$1 hours left"
+   },
+   "hoursRemaining": {
+      "message": "Show hours remaining instead of time of event"
+   },
+   "hoursRemainingTitle": {
+      "message": "If the event is further in the day and less than 24 hours away, then the hours left will be shown ex. 4h"
+   },
+   "icon": {
+      "message": "Icon"
+   },
+   "iconClassic": {
+      "message": "Classic icon"
+   },
+   "iconDefault": {
+      "message": "Default icon"
+   },
+   "iconDefault2WithDate": {
+      "message": "Default icon with current date"
+   },
+   "iconMonochrome": {
+      "message": "Monochrome icon"
+   },
+   "iconNew": {
+      "message": "New icon"
+   },
+   "iconNew2": {
+      "message": "Dark icon"
+   },
+   "iconNew2WithDate": {
+      "message": "Dark icon with current date"
+   },
+   "iconNewWithDate": {
+      "message": "New icon with current date"
+   },
+   "iconTooltip": {
+      "message": "The icon to use for the popup button"
+   },
+   "ignoreTheseAccounts": {
+      "message": "Ignore these accounts"
+   },
+   "importantMail": {
+      "message": "Important mail"
+   },
+   "inVARhour": {
+      "message": "in $1 hour"
+   },
+   "inVARhours": {
+      "message": "in $1 hours"
+   },
+   "inVARminutes": {
+      "message": "in $1 min"
+   },
+   "inbox": {
+      "message": "Inbox"
+   },
+   "inboxFor": {
+      "message": "Inbox for $1"
+   },
+   "keepHoveringOverTheBluePlusOne": {
+      "message": "Keep hovering on the blue +1 until the text appears then click it to share on Google+"
+   },
+   "labels": {
+      "message": "Labels"
+   },
+   "language": {
+      "message": "Language"
+   },
+   "languageName": {
+      "message": "English"
+   },
+   "languageToolTip": {
+      "message": "Changes the display and voice notification language. Note: You might see many languages at once because these are the rules: It will display what I've translated in the language you choose here, if I haven't translated some words it will look for it in the language of your browser, if I haven't translated those it will display it in English."
+   },
+   "largest": {
+      "message": "largest"
+   },
+   "licenseOnlyValidFor": {
+      "message": "The license will only be valid for users who sign into their Google Account with a"
+   },
+   "listenToYourEmail": {
+      "message": "Listen to your email"
+   },
+   "loading": {
+      "message": "Loading..."
+   },
+   "loadingSettings": {
+      "message": "Loading settings"
+   },
+   "logEventsAndSnoozes": {
+      "message": "Log events and snoozes"
+   },
+   "longerSnoozeTimes": {
+      "message": "Longer snooze times"
+   },
+   "m": {
+      "message": "m"
+   },
+   "mailtoLinks": {
+      "message": "Open mailto links with Gmail"
+   },
+   "mailtoLinksToolTip": {
+      "message": "Clicking on mailto links (usually email links) will open in Gmail instead of your regular mail client. Extra permissions are required to parse these links on the sites you visit."
+   },
+   "man": {
+      "message": "Man"
+   },
+   "maxDaysAhead": {
+      "message": "Number of days to look ahead"
+   },
+   "maxDaysAheadTitle": {
+      "message": "Maximum number of days for showing a countdown on the icon"
+   },
+   "me": {
+      "message": "me"
+   },
+   "meetMe": {
+      "message": "Meet me"
+   },
+   "meetMeTitle": {
+      "message": "See me in a video!"
+   },
+   "min": {
+      "message": "min"
+   },
+   "minimumAmount": {
+      "message": "You must donate at least $1"
+   },
+   "minimumDonation": {
+      "message": "1.00"
+   },
+   "minimumDonationForGoogleCheckout": {
+      "message": "1.00"
+   },
+   "minutesAgo": {
+      "message": "$1 min ago"
+   },
+   "minutesLeft": {
+      "message": "$1 minutes left"
+   },
+   "missingOptions": {
+      "message": "Are you missing options? Are the translations bad? Contact"
+   },
+   "missingOptions2": {
+      "message": "for suggestions!"
+   },
+   "monitorThisLabel": {
+      "message": "Monitor these labels"
+   },
+   "monitorThisLabelToolTip": {
+      "message": "Determines which labels the extension will monitor for new mail"
+   },
+   "month": {
+      "message": "Month"
+   },
+   "monthsArray": {
+      "message": "jan,feb,mar,apr,may,jun,jul,aug,sep,oct,nov,dec"
+   },
+   "more": {
+      "message": "more"
+   },
+   "moreInfo": {
+      "message": "More info"
+   },
+   "multipleSelectionMac": {
+      "message": "Hold down the command button to select multiple options"
+   },
+   "multipleSelectionWindows": {
+      "message": "Hold down the control (ctrl) button to select multiple options."
+   },
+   "multipleUserLicense": {
+      "message": "Get a multiple user license for your organisation"
+   },
+   "mustAddCalendar": {
+      "message": "If you enable Google Apps you must add a calendar!"
+   },
+   "mustClickShareLinks": {
+      "message": "Use any share link below the popup calendar once and then you can remove them all here!"
+   },
+   "mustSignInToPay": {
+      "message": "You must sign in to your Gmail and wait for this extension to load!"
+   },
+   "myPreference": {
+      "message": "my preference"
+   },
+   "nameNoTM": {
+      "message": "Gmail+"
+   },
+   "native": {
+      "message": "native"
+   },
+   "needHelp": {
+      "message": "Need help?"
+   },
+   "never": {
+      "message": "Never"
+   },
+   "newFeature": {
+      "message": "New feature!"
+   },
+   "next": {
+      "message": "Next"
+   },
+   "noDetails": {
+      "message": "no details"
+   },
+   "noPermissionOnEvent": {
+      "message": "Problem moving this event, you might not have permission!"
+   },
+   "noUnreadText": {
+      "message": "No unread mail"
+   },
+   "notLoggedIn": {
+      "message": "Not logged in"
+   },
+   "notSignedIn": {
+      "message": "Not signed in"
+   },
+   "notTaxExempt": {
+      "message": "I am not a tax-exempt organization"
+   },
+   "notWorking": {
+      "message": "Not working?"
+   },
+   "notificationDateFormat": {
+      "message": "dddd, mmm d"
+   },
+   "notificationFontSize": {
+      "message": "Size of notification text"
+   },
+   "notificationFontSizeTooltip": {
+      "message": "Sets the font size of the event title in the popup notification. Set the smallest for when there is a long event title and set the largest for when there is a short event title"
+   },
+   "notificationSound": {
+      "message": "Sound notifications"
+   },
+   "notificationSoundTitle": {
+      "message": "Plays a sound if you enable notifications above when your events occur"
+   },
+   "notificationTextToSpeech": {
+      "message": "Voice notifications"
+   },
+   "notificationTextToSpeechTitle": {
+      "message": "The title of your event will be spoken out loud using text to speech, great when your computer is in the next room!"
+   },
+   "notificationZoom": {
+      "message": "Notification window zoom"
+   },
+   "notificationZoomTooltip": {
+      "message": "Use this to shrink the 'all' the text in the notification window (useful for those with high DPI scaling)"
+   },
+   "notifications": {
+      "message": "Notifications"
+   },
+   "of": {
+      "message": "of"
+   },
+   "offlineMode": {
+      "message": "Offline mode"
+   },
+   "offlineModeTitle": {
+      "message": "Get notified of events without an internet connection! Warning: Your events will be saved on this computer!"
+   },
+   "omniboxDefault": {
+      "message": "7pm dinner"
+   },
+   "omniboxDefaultTom": {
+      "message": "8am wake up"
+   },
+   "oneUnreadText": {
+      "message": "unread mail"
+   },
+   "onlyPopupsForOwner": {
+      "message": "Only show notifications for events from calendars I own"
+   },
+   "onlyPopupsForOwnerTooltip": {
+      "message": "Notifications will only show events from calendars that you are the owner. This generally means the calendars under 'My calendars' and not from calendars that are shared or from the 'Other calendars' section"
+   },
+   "onlyRemoveAfterDonation": {
+      "message": "You can only remove the donation link after making a donation!"
+   },
+   "open": {
+      "message": "Open"
+   },
+   "openCalendar": {
+      "message": "Open Calendar"
+   },
+   "openComposeInTab": {
+      "message": "Open compose new mail in a tab"
+   },
+   "openComposeInTabToolTip": {
+      "message": "Open new mail composing in a tab instead of a small popup window (also applies to mailto links)"
+   },
+   "openGmailTab": {
+      "message": "Open Gmail tab"
+   },
+   "openGmailTabToolTip": {
+      "message": "Disables the preview popup window (not recommended) and opens or selects the first Gmail account tab with unread mail"
+   },
+   "openLinkTitle": {
+      "message": "Open in webmail"
+   },
+   "openPopupPreview": {
+      "message": "Open popup preview"
+   },
+   "openPopupPreviewIfUnread": {
+      "message": "Open popup preview (if unread mail)"
+   },
+   "openPopupPreviewIfUnreadToolTip": {
+      "message": "Only shows the preview window when there's unread mail"
+   },
+   "openPopupPreviewToolTip": {
+      "message": "Always shows the preview window"
+   },
+   "openReply": {
+      "message": "Open (Reply)"
+   },
+   "openThisLabel": {
+      "message": "Open this label"
+   },
+   "openThisLabelToolTip": {
+      "message": "Determines where the user will be directed when clicking the inbox label or extension icon"
+   },
+   "option": {
+      "message": "Option"
+   },
+   "optionToCustomizeWith": {
+      "message": "Use the"
+   },
+   "options": {
+      "message": "Options"
+   },
+   "or": {
+      "message": "or"
+   },
+   "orPayUsing_": {
+      "message": "Or you can pay using"
+   },
+   "original": {
+      "message": "Original"
+   },
+   "origins_languageDetection": {
+      "message": "*://*.detectlanguage.com/*"
+   },
+   "origins_mailtoLinks": {
+      "message": "*://*/*"
+   },
+   "paragraph": {
+      "message": "paragraph"
+   },
+   "password": {
+      "message": "Password:"
+   },
+   "pastDays": {
+      "message": "Gray out past days"
+   },
+   "pastDaysTitle": {
+      "message": "Gray out the past days of the calendar, but, only in 'Regular' month calendar view"
+   },
+   "pasteHTML": {
+      "message": "and paste the HTML below"
+   },
+   "pastePrivateAddress": {
+      "message": "Paste the Private Address (XML) of the calendar here"
+   },
+   "pitch": {
+      "message": "Pitch"
+   },
+   "pollNow": {
+      "message": "Poll now"
+   },
+   "pollingAccounts": {
+      "message": "Polling accounts"
+   },
+   "pollingInterval": {
+      "message": "Polling interval"
+   },
+   "pollingIntervalTooltip": {
+      "message": "The interval in which to fetch emails"
+   },
+   "popupGoogleCalendarWebsite": {
+      "message": "Make button open Google Calendar website instead of popup"
+   },
+   "popupGoogleCalendarWebsiteHelpTitle": {
+      "message": "When clicking on the button icon open Google Calendar website instead of small popup window. (Holding CTRL when clicking on the icon will also do this!)"
+   },
+   "popupText": {
+      "message": "You have received new mail!"
+   },
+   "poweredByGoogle": {
+      "message": "Powered by Google"
+   },
+   "preview": {
+      "message": "Preview"
+   },
+   "previewingMarksAsRead": {
+      "message": "Previewing marks as read"
+   },
+   "previewingMarksAsReadToolTip": {
+      "message": "Mark a mail as read when previewing it in the popup window"
+   },
+   "previous": {
+      "message": "Previous"
+   },
+   "priorityInbox": {
+      "message": "Priority inbox"
+   },
+   "problemCommunicatingTryAgain": {
+      "message": "Error: $1 Problem communicating with $2, please try again!"
+   },
+   "problemSigningIn": {
+      "message": "Problem signing in! Possibly due to no internet connection!"
+   },
+   "processing": {
+      "message": "Processing"
+   },
+   "quickAdd": {
+      "message": "Quick Add"
+   },
+   "quickAddDefaultText": {
+      "message": "e.g. 7pm Dinner at Bob's"
+   },
+   "quickAddTitle": {
+      "message": "e.g. Soccer in 20 min"
+   },
+   "rate": {
+      "message": "Rate"
+   },
+   "rateTitle": {
+      "message": "Speed of speech: words per minute"
+   },
+   "readLink": {
+      "message": "Mark as read"
+   },
+   "readLinkTitle": {
+      "message": "Mark as read"
+   },
+   "readLinkTitleShort": {
+      "message": ""
+   },
+   "recentlyAddedEvent": {
+      "message": "Problem occured! If you recently added this event via the webpage then click the refresh icon or else please use the Google Calendar webpage!"
+   },
+   "referToAlreadyDonated": {
+      "message": "Refer to $1"
+   },
+   "referToAlreadyDonated2": {
+      "message": "already donated"
+   },
+   "refresh": {
+      "message": "Refresh"
+   },
+   "refreshLinkTitle": {
+      "message": "Refresh all mailboxes"
+   },
+   "rememberQuickAdd": {
+      "message": "Remember 'Quick Add' sign in"
+   },
+   "rememberQuickAddTitle": {
+      "message": "Note: This will only save the Google AuthKey but NOT your sign in credentials"
+   },
+   "remindersBeforeEvent": {
+      "message": "Only show notifications for events with a"
+   },
+   "remindersBeforeEventHelpTitle": {
+      "message": "In your Google Calendar page on the left is your calendar list, click on the down-arrow button next to the calendar of your choice, then select 'Notifications'. Then add the 'Pop-up' reminder and set a reminder time. Note: You can also override this option for each event when adding or editing them"
+   },
+   "remindersBeforeEventPopupReminder": {
+      "message": "'pop-up' reminder"
+   },
+   "remove": {
+      "message": "Remove"
+   },
+   "removeDonationLink": {
+      "message": "Remove donation link"
+   },
+   "removeDonationLinkTitle": {
+      "message": "This will remove the Donate link under the calendar"
+   },
+   "removeQuickAdd": {
+      "message": "Remove 'Quick Add'"
+   },
+   "removeQuickAddTitle": {
+      "message": "Hide 'Quick Add' feature"
+   },
+   "removeShareLinks": {
+      "message": "Remove share links"
+   },
+   "removeShareLinksTooltip": {
+      "message": "Removes Facebook, Twitter links etc. below the popup calendar"
+   },
+   "removeTitle": {
+      "message": "Remove calendar"
+   },
+   "repeatSound": {
+      "message": "Repeat notification sound every"
+   },
+   "repeatSound2": {
+      "message": "and stop after"
+   },
+   "repeatSound3": {
+      "message": "times"
+   },
+   "repeatSoundTooltip": {
+      "message": "Repeats the notification or voice sound if the notification popup window has not been dismissed"
+   },
+   "reply": {
+      "message": "Reply"
+   },
+   "replyLinkTitle": {
+      "message": "Reply to mail"
+   },
+   "replyingMarksAsRead": {
+      "message": "Replying marks as read"
+   },
+   "replyingMarksAsReadToolTip": {
+      "message": "Clicking the reply button will mark the email as read"
+   },
+   "reschedule": {
+      "message": "Reschedule"
+   },
+   "runInBackground": {
+      "message": "Run in background when Google Chrome is closed"
+   },
+   "runInBackgroundToolTip": {
+      "message": "Continue receiving new email notifications even while your browser is closed! I recommend this only for advanced users."
+   },
+   "runInBackgroundWarning1": {
+      "message": "Please read carefully about $1"
+   },
+   "runInBackgroundWarning1b": {
+      "message": "background apps"
+   },
+   "runInBackgroundWarning2": {
+      "message": "If you disabled background apps in Chrome you can re-enable them by reading the $1"
+   },
+   "runInBackgroundWarning2b": {
+      "message": "last clickable section"
+   },
+   "runInBackgroundWarning3": {
+      "message": "You might have to use the $1 from the Gmail login page"
+   },
+   "runInBackgroundWarning3b": {
+      "message": "stay signed in"
+   },
+   "save": {
+      "message": "Save"
+   },
+   "saveSettings": {
+      "message": "Save Settings"
+   },
+   "saved": {
+      "message": "Saved!"
+   },
+   "saving": {
+      "message": "Saving..."
+   },
+   "securely": {
+      "message": "securely."
+   },
+   "seeVideo": {
+      "message": "See video"
+   },
+   "selectACalendar": {
+      "message": "Select a calendar"
+   },
+   "selectCalendar": {
+      "message": "First you must select a calendar!"
+   },
+   "selectQuickActionButtons": {
+      "message": "Show or hide action buttons"
+   },
+   "selectQuickActionButtonsToolTip": {
+      "message": "Note: This will not hide the buttons in the full email view!"
+   },
+   "sendPageLinkTitle": {
+      "message": "Send page link"
+   },
+   "setDateTime": {
+      "message": "Set date/time"
+   },
+   "severalUnreadText": {
+      "message": "unread mail"
+   },
+   "share": {
+      "message": "Share"
+   },
+   "showAgendaOptions": {
+      "message": "Show options link in agenda view"
+   },
+   "showAgendaOptionsTitle": {
+      "message": "Show options link in agenda view"
+   },
+   "showButtonTooltip": {
+      "message": "Show tooltip when hovering over the button icon"
+   },
+   "showButtonTooltipTooltip": {
+      "message": "Show the next events when hovering over the button icon"
+   },
+   "showConsoleMessages": {
+      "message": "Log messages in Javascript Console"
+   },
+   "showConsoleMessagesTitle": {
+      "message": "Meant for debugging only and may slow down the extension a little bit!"
+   },
+   "showContactPhoto": {
+      "message": "Show photos of email contacts"
+   },
+   "showContactPhotoToolTip": {
+      "message": "If your contact has a photo it will show it, or even add your own photo for them in your Google Contacts or just hover their empty photo image in Gmail to add a photo. If no photo is found than the default logo will appear instead. Permissions are required to fetch your contacts photos."
+   },
+   "showContextMenuItem": {
+      "message": "Show context menu item on right click"
+   },
+   "showContextMenuItemTooltip": {
+      "message": "Adds a menu item when you right click in any webpage or email webpage to quickly add it to your calendar"
+   },
+   "showDataFeeds": {
+      "message": "Show calendar data feeds"
+   },
+   "showDayOnBadge": {
+      "message": "Show current day of week on button icon"
+   },
+   "showDayOnBadgeExceptWhenDaysLeft": {
+      "message": "Except when next event is days away"
+   },
+   "showDayOnBadgeExceptWhenHoursLeft": {
+      "message": "Except when next event is hours away"
+   },
+   "showDayOnBadgeExceptWhenMinutesLeft": {
+      "message": "Except when next event is minutes away"
+   },
+   "showDayOnBadgeTooltip": {
+      "message": "Instead of countdown to the next event display the current day of the week like 'Tue' etc. Note: You can also list exceptions!"
+   },
+   "showDesktopNotifications": {
+      "message": "Desktop notifications"
+   },
+   "showDesktopNotificationsTitle": {
+      "message": "Enable this to show a notification when an event in your calendar occurs"
+   },
+   "showDetails": {
+      "message": "Show details"
+   },
+   "showEmailAccount": {
+      "message": "Always show inbox email account"
+   },
+   "showEmailAccountToolTip": {
+      "message": "Useful if you're checking 2 or more accounts. Displays the current inbox email account that has received the new unread email notification"
+   },
+   "showEventTimeOnBadge": {
+      "message": "Show time of event on button icon"
+   },
+   "showEventTimeOnBadgeTooltip": {
+      "message": "Display the time till the next event on top of the icon"
+   },
+   "showHeader": {
+      "message": "Show the top header in the popup window"
+   },
+   "showHeaderTooltip": {
+      "message": "Displays the Quick Add and other commands at the top part of the popup"
+   },
+   "showIconAnimation": {
+      "message": "Show icon animation"
+   },
+   "showIconAnimationToolTip": {
+      "message": "Animates the icon when there is new mail"
+   },
+   "showLabelsTitle": {
+      "message": "Show Labels"
+   },
+   "showLeftColumnWhenPreviewingEmail": {
+      "message": "Show left side column in popup when previewing email"
+   },
+   "showLeftColumnWhenPreviewingEmailToolTip": {
+      "message": "Note: This column might automatically become hidden if the email is too wide and needs more space"
+   },
+   "showMinutesLeftInBadge": {
+      "message": "Show minutes remaining instead of time of event"
+   },
+   "showMinutesLeftInBadgeTitle": {
+      "message": "If the event is coming soon then show the minutes remaining"
+   },
+   "showNotificationsForOlderDateEmails": {
+      "message": "Show notifications for older dated emails (Useful only for POP3 accounts)"
+   },
+   "showNotificationsForOlderDateEmailsToolTip": {
+      "message": "If \u003Cb\u003Eunchecked\u003C/b\u003E, popup notifications will only occur for your newest emails (recommended for most), but sometimes emails fetched using POP3 will arrive in your inbox after your newest emails and are sorted in the middle of your inbox because of their older dates. If you \u003Cb\u003Echeck\u003C/b\u003E this option those emails will also appear in your popup notifications but only to maximum of 20 unread emails in your inbox. Note: If you mark emails as unread they will also popup notifications again!"
+   },
+   "showOpenCalendar": {
+      "message": "Show open calendar icon"
+   },
+   "showOpenCalendarTooltip": {
+      "message": "Shows open calendar icon"
+   },
+   "showOptionsButton": {
+      "message": "Show options button"
+   },
+   "showQuickAdd": {
+      "message": "Show 'Quick Add'"
+   },
+   "showQuickAddTooltip": {
+      "message": "Displays the quick add text input area at the top left"
+   },
+   "showRefresh": {
+      "message": "Show refresh icon"
+   },
+   "showRefreshTooltip": {
+      "message": "Shows the refresh icon"
+   },
+   "showTimeSpecificEventsBeforeAllDay": {
+      "message": "Show time specific events before all day events"
+   },
+   "showTimeSpecificEventsBeforeAllDayTooltip": {
+      "message": "If tomorrow you have an all day event and a 10am event it will show 10am instead of 1d"
+   },
+   "showViewDropDown": {
+      "message": "Show view dropdown"
+   },
+   "showViewDropDownTooltip": {
+      "message": "Displays the 'View' dropdown list (Note: You need to see this to change your view initially, afterwards you can hide it :)"
+   },
+   "signIn": {
+      "message": "Sign in"
+   },
+   "signInAsUserOfOrg": {
+      "message": "You must $1 with your organisation's email"
+   },
+   "signInAsUserOfOrg2": {
+      "message": "sign out and sign in to your Gmail"
+   },
+   "signInToYourAccount": {
+      "message": "Sign in to your account(s) first then reload this page!"
+   },
+   "smallest": {
+      "message": "smallest"
+   },
+   "snooze": {
+      "message": "Snooze"
+   },
+   "snoozeAll": {
+      "message": "Snooze All"
+   },
+   "somedayAt": {
+      "message": "$1 at"
+   },
+   "sound": {
+      "message": "Sound"
+   },
+   "spamLink": {
+      "message": "Spam"
+   },
+   "spamLinkTitle": {
+      "message": "Mark as spam"
+   },
+   "speechEngine": {
+      "message": "Speech engine"
+   },
+   "spokenWordsLimit": {
+      "message": "Limit words spoken to"
+   },
+   "spokenWordsLimitToolTip": {
+      "message": "You can stop the speech anytime by clicking on the button or hovering over the notification window. Note: Some speech engines may impose their own spoken word limit"
+   },
+   "ssl": {
+      "message": "Always use SSL"
+   },
+   "sslTitle": {
+      "message": "Always use SSL encryption when accessing Google Calendar"
+   },
+   "standardNotification": {
+      "message": "Standard notification window"
+   },
+   "standardNotificationToolTip": {
+      "message": "Notifies you the last unread email with basic action buttons"
+   },
+   "starLinkTitle": {
+      "message": "Star mail"
+   },
+   "staySignedIn": {
+      "message": "Stay signed in"
+   },
+   "successful": {
+      "message": "Successful"
+   },
+   "summary": {
+      "message": "summary"
+   },
+   "summaryLinkTitle": {
+      "message": "Show summary"
+   },
+   "supportAndRequestsPrioritized": {
+      "message": "to support me and get your requests prioritized!"
+   },
+   "testDescription": {
+      "message": "Test description"
+   },
+   "testEvent": {
+      "message": "Test event"
+   },
+   "testIt": {
+      "message": "Test it out!"
+   },
+   "thankYouForYourContribution": {
+      "message": "The features are now unlocked. Thank you for your contribution!"
+   },
+   "thankYouForYourContribution2": {
+      "message": "Close this window and enjoy!"
+   },
+   "theme": {
+      "message": "Theme"
+   },
+   "timeout": {
+      "message": "Timeout delay"
+   },
+   "timeoutNote": {
+      "message": "Change it only if you have lots of calendars or events"
+   },
+   "timeoutTooltip": {
+      "message": "May eliminate sign in problem, increase it only if you have 10 or more calendars or if you have lots of events)"
+   },
+   "timeoutTryAgain": {
+      "message": "Timeout occured when communicating with $1, please try again!"
+   },
+   "to": {
+      "message": "to"
+   },
+   "toSeeCalendar": {
+      "message": "to see your calendar!"
+   },
+   "today": {
+      "message": "Today"
+   },
+   "todayAt": {
+      "message": "Today at"
+   },
+   "tom": {
+      "message": "tom"
+   },
+   "tomorrow": {
+      "message": "Tomorrow"
+   },
+   "tomorrowAt": {
+      "message": "Tomorrow at"
+   },
+   "turnOffRegularGmailChecking": {
+      "message": "Turn off regular Gmail checking and only check Google Apps"
+   },
+   "turnOffRegularGmailCheckingToolTip": {
+      "message": "This will ignore your @gmail.com accounts!"
+   },
+   "undo": {
+      "message": "Undo"
+   },
+   "unlockFeatures": {
+      "message": "Unlock these features and future ones with a one time donation of any amount and they will be immediately available!"
+   },
+   "unlockHeader": {
+      "message": "Get the extra features and support your developer"
+   },
+   "unreadLink": {
+      "message": "Unread"
+   },
+   "unreadLinkTitle": {
+      "message": "Mark as unread"
+   },
+   "unreadLinkTitleShort": {
+      "message": "Unread"
+   },
+   "unreadMail": {
+      "message": "Unread mail"
+   },
+   "view": {
+      "message": "View"
+   },
+   "voiceNotificationOnlyIfIdle": {
+      "message": "Only if you're away from computer for at least"
+   },
+   "voiceNotificationOnlyIfIdleTooltip": {
+      "message": "Use this option if you only want to hear the voice when your NOT using your computer, not in front of it, or if it's idling etc. Recommended by me :)"
+   },
+   "volume": {
+      "message": "Volume"
+   },
+   "voythas": {
+      "message": "Voythas"
+   },
+   "voythasToolTip": {
+      "message": "Icons created by VoYtHAs"
+   },
+   "wantToStaySignedIn": {
+      "message": "Want to stay signed in?"
+   },
+   "week": {
+      "message": "Week"
+   },
+   "what": {
+      "message": "What"
+   },
+   "when": {
+      "message": "When"
+   },
+   "wholeEmail": {
+      "message": "whole email"
+   },
+   "whyContribute": {
+      "message": "Why should I contribute?"
+   },
+   "whyContributeReason1": {
+      "message": "I put many hours updating and supporting $1 weekly in response to your suggestions"
+   },
+   "whyContributeReason1_1": {
+      "message": "all my extensions"
+   },
+   "whyContributeReason2": {
+      "message": "I read and provide quick feedback to your comments and reviews :)"
+   },
+   "whyContributeReason3": {
+      "message": "You can contribute any amount and i'll be happy!"
+   },
+   "whyContributeReason4": {
+      "message": "This extension keeps getting great $1, thanks to you!"
+   },
+   "whyContributeReason4_1": {
+      "message": "reviews"
+   },
+   "whyContributeReason5": {
+      "message": "Find out more about me at $1"
+   },
+   "whyContributeReason5_1": {
+      "message": "google.com/bio"
+   },
+   "whyContributeToCalendarReason1": {
+      "message": "Be a more productive Google user for you or your business"
+   },
+   "whyContributeToCalendarReason2": {
+      "message": "A lot cheaper than $1"
+   },
+   "whyContributeToCalendarReason2_1": {
+      "message": "Microsoft Outlook"
+   },
+   "woman": {
+      "message": "Woman"
+   },
+   "writeAboutMe": {
+      "message": "Try my other popular extensions!"
+   },
+   "writeSomethingNice": {
+      "message": "Replace this text with a nice comment about this app or how or why you use it"
+   },
+   "yesterday": {
+      "message": "yesterday"
+   },
+   "zoom": {
+      "message": "Zoom"
+   }
+}

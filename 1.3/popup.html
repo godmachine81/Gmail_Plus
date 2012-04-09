@@ -1,0 +1,1369 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+   <link rel="stylesheet" type="text/css" media="screen" href="css/common.css" />
+   <link rel="stylesheet" type="text/css" media="screen" href="css/checkerPlusForGmail.css" />
+   <style>   
+   		::-webkit-scrollbar {width:8px;height:8px;}
+		::-webkit-scrollbar:hover, html.notif ::-webkit-scrollbar {border:1px solid #ccc}
+		::-webkit-scrollbar-thumb {background-color:rgba(0,0,0,0.2);-webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,0.10),inset 0 -1px 0 rgba(0,0,0,0.07);}
+		::-webkit-scrollbar-thumb:hover {background:rgba(0,0,0,0.4)}
+		::-webkit-scrollbar-button {width: 0;height: 0;display: none;}
+		::-webkit-scrollbar-corner {background-color: transparent}
+		
+		html.notif ::-webkit-scrollbar {width:10px}
+
+		body {font-family: arial, sans-serif;font-size: 0.8em;margin:0 0 0 2px}
+		a:hover {text-decoration:underline}
+		img {vertical-align: text-top}
+		
+		html {overflow:hidden;position:relative}
+		
+		html {min-width:631px}
+		#inboxes {width:631px}
+		
+		html.notif #inboxes {width:298px}
+		
+		html.notif {min-width:inherit}
+		html.notif #header, html.notif #menu {display:none}
+		html.notif #scrollAreaWrapper {padding-top:0}
+		
+		html.notif .inbox {margin-top:0}
+		html.notif .account:first-child .inbox {border-top:none}
+
+		html.hideInbox .inboxLabelAreaWrapper {display:none}
+		html.hideInbox .mail:first-child {border-top:none !important}
+		
+		html.notif #fullEmailSubjectArea {display:none}
+
+		html.notif .mail .date {font-weight:normal}
+		
+		html.notif #inboxes .mail .quickActions {opacity:0;-webkit-transition: opacity 250ms ease-out;}
+		
+		html.notif #inboxes .mail .star {position:absolute;right:2px;top:18px;z-index:2;background-color:white}
+		html.notif #inboxes .mail.read .star {background-color:transparent}
+
+		html.notif #inboxes .mail:hover .quickActions {opacity:1;display:inline}
+		html.notif #inboxes .mail:hover .date {display:none}
+		
+		html.notif #inboxes .mail:hover .star {display:inline-block}
+		html.notif #inboxes .mail:hover .open {display:inline-block}
+		html.notif #inboxes .mail:hover .reply {display:inline-block}
+		
+		html.notif .inboxActions {display:none}
+		
+		html.notif .mail.selected {background:none}
+		
+		html.notif #fullEmailActionButtons {padding:4px 5px}
+		
+		html.notif .labelsDropDown {max-height:80px;max-width:145px}
+		
+		html.notif .fullEmailToCC {max-width:170px;white-space:nowrap}
+		
+		html.notif .emailDetailsTopRight {padding-left:0}
+		
+		html.notif #inboxes .star {display:none}
+		html.notif #inboxes .quickActions {display:none}
+		html.notif #inboxes .open {display:none}
+		html.notif #inboxes .reply {display:none}
+		
+		html.notif .button {padding:0px 1px !important}
+		html.notif #inboxes .button div {height:16px;background-size:21px 15px}
+		html.notif #inboxes .button.markAsRead div {overflow:hidden;max-width:72px;padding:0px 3px;line-height:16px}
+		html.notif #inboxes .button.spam div {background-position: 0px 0px}
+		
+		html.notif .summary {white-space:normal}
+		html.notif #inboxes .summary {color:#333}
+		html.notif .mail.selected .summary {xxxwhite-space:nowrap}
+		
+		
+		html.notif #inboxes {max-height:160px;margin-right:0} 
+		html.notif #fullEmailContent {max-height:125px}
+		html.notif #fullEmailContent a:hover {text-decoration:underline !important}
+		
+		#topRightControls {position:absolute;top:5px;right:5px} /* display:inline-block;float:right */
+		
+		.listenToEmail {margin-right:10px;opacity:0.7}
+		html.notif .listenToEmail {margin-right:-2px}
+		.listenToEmail:hover {opacity:1}
+		
+		.emailZoom {width:40px;opacity:0.7;height:10px;margin-top:13px}
+		.emailZoom:hover {opacity:1}
+		
+		html.notif .emailZoom {width:22px;margin-top:7px} 
+		
+		#scrollAreaWrapper {width:100%;clear:left;overflow:hidden;padding-top:7px}
+		#scrollArea {left:0;position:absolute;width:2200px}
+		
+		.inboxLabelArea, .emailDetails {overflow:hidden;white-space:nowrap;margin-right:3px}
+		html.notif .inboxLabelArea, html.notif .emailDetails {xxxoverflow:auto;white-space:normal}
+		
+		.subject {margin:4px 0}
+		
+		/* 2 or more emails */
+		html.notif.compact .subject {white-space:nowrap;margin:0}
+		html.notif.compact #inboxes .mail {padding: 3px 5px}
+		html.notif.veryCompact .summary {white-space:nowrap}
+		html.notif.extremelyCompact .summary {display:none}
+		
+		#by {font-size:11px;color:black;margin-left:2px}
+		
+		.alwaysHide {display:none !important}
+		
+		.account {margin-right:2px}
+		
+		#inboxes {float:left;display:inline-block;overflow-y: auto;margin-right:5px;max-height:500px}
+		
+		.account:not(:first-child) .inbox {margin-top: 5px}
+		
+		#fullEmail {vertical-align:top;float:left;border:1px solid #eee;}
+		#fullEmailContent {max-height:412px;clear:left;overflow-x:auto;overflow-y:auto}
+		
+		#fullEmailActionButtons {position:relative;border-bottom:1px solid #eee}
+		#fullEmailActionButtons, #fullEmailSubject {padding:8px 10px}
+		#fullEmailSubject {margin-bottom: 6px;float:left;font-size:18px;font-family: arial,sans-serif;color: #222;width:450px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;}
+		
+		#fullEmail .quickActions {display:none} 
+				
+		.rounded {border-radius: 6px 0 0 6px;border: 1px solid #ddd}		
+		.padded {padding: 2px 4px 2px 4px}
+		.margin {margin-bottom: 5px !important}
+		.toggleLink {padding-top:1px;opacity: 0.5;-webkit-transition: opacity 0.05s ease-in;;border-radius: 6px 0 0 6px;border-right: 1px solid #bbb}
+		.toggleLink:hover {opacity:1;cursor:pointer}
+		.toggleLink.hidden img {opacity:0}		
+		.summary {color:#777;cursor:pointer;white-space:nowrap}
+		#header {float:left;margin:3px 0 0 3px}
+		#title {color:black;font-size: 110%;font-weight:bold;text-decoration:none}
+		#title:hover {color:blue}
+		div#menu {float: right;}
+		
+		.inboxLink {display:inline-block;font-size:110%;line-height:25px;padding-left:5px}
+		.inboxLink .icon {height:17px}
+		
+		.indicator {border-right: 2px solid;}
+		.indicator.i0 {border-color: #79B;}
+		.indicator.i1 {border-color: #ec5f65;}
+		.indicator.i2 {border-color: #eadf30;}
+		.indicator.i3 {border-color: #60b579;}
+		
+		.mail {position:relative;padding:5px;border-top:1px solid #ccc}
+	
+		.mail,
+		.mail .author {background:rgba(255,255,255,.9)}
+		
+		.mail .emailDetails .unread,
+		.mail .subject {font-weight:bold}
+		
+		.mail .emailDetailsTopRight {background:white}
+		
+		.mail.read .emailDetails .unread,
+		.mail.read .subject,
+		.mail.read .date {font-weight:normal}
+						
+		.mail.read,
+		.mail.read .emailDetailsTopRight {background:rgba(243,243,243,.85)}
+		
+		.date {min-width: 57px;display: inline-block;text-align: right}
+
+		.imageArea {margin-right: 8px}
+		.emailDetails {border-radius:3px}
+		
+		xx.inboxLabelArea:hover,
+		xx.mail:hover,
+		.mail.selected,
+		.mail.selected .emailDetailsTopRight,
+		xx.mail:hover xx.emailDetailsTopRight {background:#F9F9E0}
+		
+		.emailDetails:hover {cursor:pointer}
+		
+		.contactPhoto {display:none;width:32px;height:32px;xxxbackground:#ccc}
+		
+		.fullEmailSenderArea .contactPhoto {display:inline}
+		.fullEmailSenderArea .author {font-weight:bold;padding-right:10px;position:relative;z-index:20}
+		.fullEmailSenderArea .subject {display:none}
+		.fullEmailSenderArea .summary {margin-top:3px;display:none}
+		.fullEmailSenderArea .date {font-weight:normal}
+		
+		.fullEmailSenderArea .emailDetailsTopRight {background:none;height:5px}		
+		
+		#inboxes .button {padding:0px 8px}		
+		
+		.labelsDropDown {overflow-y:scroll;max-height:150px;z-index:100;display:none;position:absolute;background:white;border:1px solid #aaa;padding:2px;box-shadow:2px 2px 5px gray;margin-bottom:5px}
+		.labelsDropDown div {padding:2px 2px;white-space:nowrap}
+		.labelsDropDown div:hover {background:#eee;cursor:pointer}
+		
+		.spaceRight {margin-right:7px}
+		html.notif .spaceRight {margin-right:2px}
+		
+		.markAsUnread {padding-left:5px;padding-right:5px;xxxmax-width:130px}
+		
+		.emailDetailsTopRight {white-space:nowrap;position:absolute;top:-2px;right:0px;padding-left:10px;xxfont-weight:bold;xxxbackground-image: -webkit-gradient(linear, left top, left bottom, color-stop(0.1, rgb(245,	245, 245) ), color-stop(0.8, rgb(255, 255, 255) ) );}
+		.emailDetailsTopRight.fixed {position:fixed;top:120px;xxright:13px}
+
+		html.notif .emailDetailsTopRight.fixed {top:36px}
+		html.notif .emailDetailsTopRight.fixed .date {display:none}
+
+		.emailDetailsTopRight .date {padding-right:3px}
+		
+		.inboxLabelArea.hasUnread {font-weight:bold}
+		
+		.inboxLink:hover {cursor:pointer}		
+		.inboxLink .icon {opacity:0}
+		xxx.inboxLink:hover .icon {opacity:1}
+		xxx.inboxLink:hover {color:blue}
+
+		.quickActions {display:inline}
+
+		.inboxActions {position:absolute;top:1px;right:2px}
+		.inboxActions img {opacity:0.5}
+		.inboxActions img:hover {opacity:1;cursor:pointer}
+		.inboxActions .sendPageLink {opacity:0.5;margin-top: 3px;margin-right: 0px;width: 19px;height: 12px;display: inline-block;background-repeat: no-repeat;}
+		.inboxActions .sendPageLink:hover {opacity:1;cursor:pointer}		
+		
+		#inboxes.squished .inboxActions {opacity:0}
+		
+		.inboxLink:hover .mailActions,
+		.mail:hover .mailActions {xxxdisplay:inline-block}
+		
+		#inboxes.squished .quickActions,		
+		#inboxes.squished .timeAgo,
+		#inboxes.squished .open,
+		#inboxes.squished .reply {display:none}
+		
+		
+		.fullEmailBody {width:100%}
+		.fullEmailDate {float:right}
+		
+		.fullEmailToCCWrapper {display:none}
+		.fullEmailSenderArea .fullEmailToCCWrapper {display:block}
+		.fullEmailToCC {max-width:300px;opacity:0.5;overflow-x:hidden;display: inline-block;text-overflow: ellipsis;}
+		
+		.fullEmailToCC.showDetails {overflow-x:auto;white-space:normal}
+		html.notif .fullEmailToCC.showDetails {white-space:normal}
+		
+		.fullEmailShowToCC {font-size:10px;z-index: 5;display: inline-block;background: #eee;border-radius: 3px;cursor: pointer;height:9px;line-height: 6px;border: 1px solid #aaa;padding: 0 1px;}
+		
+		.thread {border-spacing:0}
+		.thread:first-child .mail {border-top-color:#efefef}
+		.thread:not(:first-child) {margin-top:-1px}
+		
+		html.notif .threadBody > td > table > tbody > tr > td:first-child {padding:3px 0 0 8px}
+		
+		.collapsed .fullEmailSenderArea {border-bottom:1px solid #cfcfcf}
+		
+		.collapsed .fullEmailSenderArea {background:#aaa}
+		.collapsed .mail .author {background:#f5f5f5} /* i think the superimposed backgrounds are forcing me to make this background a bit lighter: note it's necessary to put a backgound so author covers date */ 
+		
+		.collapsed .fullEmailSenderArea .emailDetailsTopRight {background:transparent}
+		.collapsed .fullEmailSenderArea .summary {display:block}
+		.collapsed .fullEmailSenderArea .fullEmailToCCWrapper {display:none}
+		
+		.collapsed .fullEmailSenderArea .open,
+		.collapsed .fullEmailSenderArea .reply {display:none}
+		
+		.collapsed .threadBody {display:none}
+</style>
+    
+   <script type="text/javascript" src="src/jquery.min.js"></script>
+   <script type="text/javascript" src="src/common.js"></script> <!--  must be after settings.js -->
+   <script type="text/javascript" src="src/checkerPlusForGmail.js"></script>
+   <script type="text/javascript" src="src/encoder.js"></script>
+   <script type="text/javascript" src="src/mailaccount.class.js"></script>
+   
+   <script>
+var bg = chrome.extension.getBackgroundPage();
+var Settings = bg.getSettings();
+var accounts = bg.accounts;
+var inNotificationWindow = getUrlValue(location.href, "notificationWindow");
+var simulateToolTips;
+var mouseInPopup = false;
+var mouseHasEnteredPopupAtleastOnce = false;
+
+var totalUnreadCount = bg.unreadCount;
+var photosDisplayed;
+var MAX_PHOTOS_TO_SHOW = 20; // so we don't do too many oauth calls
+var initialInboxesWidth;
+var squezedInboxesWidth;
+var notifFixedRightMargin = 11;
+var closeTimeout;
+
+bg.ChromeTTS.stop();
+
+function setCloseTimeout() {
+	if (inNotificationWindow) {
+		var timeout = Settings.read("dn_timeout");
+		if (timeout != 0) {
+			closeTimeout = setTimeout(function () {
+				window.close();
+			}, timeout);
+		}
+	}
+}
+
+function hideFullEmail(callback) {
+	$fixedArea.removeClass('fixed');
+	if (!callback) {
+		callback = function() {};
+	}
+   	$("#fullEmail").slideUp();
+   	
+   	if (inNotificationWindow) {
+   		$("#scrollArea").animate({
+   		    left: 0
+   		}, 400, function() {
+   			$("#inboxes").removeClass("squished");
+   			callback();
+   		});
+   	} else {
+   		$("#inboxes").animate({
+   		    width: initialInboxesWidth
+   		}, 400, function() {
+   			$("#inboxes").removeClass("squished");
+   			callback();
+   		});
+   	}
+	
+	$(".mail").removeClass("selected");
+}
+
+function setFixedWidth() {
+	// set an exact width instead of 100%
+	initialInboxesWidth = $("#inboxes").width();		
+	$("#inboxes").css("width", initialInboxesWidth);
+}
+
+function showFullEmail($mail, callback) {
+	var mail = $mail.data("data");
+	
+	if (!initialInboxesWidth) {		
+		setFixedWidth();
+
+		var hideLeftColumnWhenPreviewingEmail = !Settings.read("showLeftColumnWhenPreviewingEmail") || inNotificationWindow;
+		if (hideLeftColumnWhenPreviewingEmail) {
+			squezedInboxesWidth = 0;
+		} else {
+			squezedInboxesWidth = initialInboxesWidth * 0.40;
+		}
+		//$("#scrollArea").css("width", "2200px");
+	}	
+	
+	setTimeout(function() {
+
+		var $fullEmail = $("#fullEmail");
+		var currentlyOpenFullEmail = $("#fullEmail").data("data"); 
+		
+		if (currentlyOpenFullEmail && currentlyOpenFullEmail.id == mail.id && $fullEmail.is(":visible")) {
+			hideFullEmail();
+			callback();
+		} else {
+			$fullEmail.data("data", mail);
+			
+			if (!$("#inboxes").hasClass("squished")) {
+				$("#inboxes").addClass("squished");
+				
+				if (inNotificationWindow) {
+					$("#scrollArea").animate({
+					    left: -298
+					}, 400, ["swing"], function() {
+						initialInboxesWidth = $("#body").width();
+						
+						// because #inboxes has a margin-right:5px so remove it from here
+						var marginRight;
+						if (inNotificationWindow) {
+							marginRight = 0;
+						} else {
+							marginRight = 6;
+						}
+						$("#fullEmailContent").css("width", initialInboxesWidth-squezedInboxesWidth-marginRight);
+					});
+				} else {
+					// because #inboxes has a margin-right:5px so remove it from here
+					var marginRight;
+					if (inNotificationWindow) {
+						marginRight = 0;
+					} else {
+						marginRight = 6;
+					}
+					$("#stretcher").show();
+					$("#fullEmailContent").css("width", initialInboxesWidth-squezedInboxesWidth-marginRight);
+					$("#inboxes").animate({
+					    width: squezedInboxesWidth
+					}, 400, ["swing"], function() {
+						initialInboxesWidth = $("#body").width();
+						
+						$("#fullEmailContent").css("width", initialInboxesWidth-squezedInboxesWidth-marginRight);
+					});
+				}
+			}
+
+			if (inNotificationWindow) {
+				// save height because the notification window sometimes gets smaller after removing the selected class, so prevent that
+				//$("html").css("height", $("html").height());
+			}
+
+			$(".mail").removeClass("selected");
+			$mail.addClass("selected")
+
+			mail.getBody(function(cbParams) {
+				if (cbParams.error) {
+					alert("Error: " + cbParams.error);
+					callback();
+				} else {
+					
+					var markAsReadSetting = Settings.read("showfull_read");
+					var zoomChanged = false;
+					
+					$("#fullEmailActionButtons").find(".emailZoom").val(100);
+					
+					if (markAsReadSetting) { //$mail.hasClass("read")
+						$("#fullEmailActionButtons").find(".markAsRead").hide();
+						$("#fullEmailActionButtons").find(".markAsUnread").show();
+					} else {
+						$("#fullEmailActionButtons").find(".markAsRead").show();
+						$("#fullEmailActionButtons").find(".markAsUnread").hide();
+					}
+
+					$("#fullEmailActionButtons").find(".markAsUnread").off("click").on("click", {mail:mail, $mail:$mail}, function(event) {						
+						markAsUnread(event.data.$mail, event.data.mail);
+						hideFullEmail();
+						sendGA(['_trackEvent', "emailView", "markAsUnread"]);
+					});
+
+					$("#fullEmailActionButtons").find(".markAsRead").off("click").on("click", {mail:mail, $mail:$mail}, function(event) {
+						markAsRead(event.data.$mail, event.data.mail);
+						hideFullEmail();
+						sendGA(['_trackEvent', "emailView", "markAsRead"]);
+					});
+
+					$("#fullEmailActionButtons").find(".listenToEmail").off("click").on("click", {mail:mail, $mail:$mail}, function(event) {
+						if ($(this).find("img").attr("src").indexOf("play") != -1) {
+							bg.ChromeTTS.queue(event.data.mail.getLastThreadText(), {}, function() {
+								$("#fullEmailActionButtons").find(".listenToEmail img").attr("src", "/img/play.png");
+							});
+							$(this).find("img").attr("src", "/img/stop.png");
+						} else {
+							bg.ChromeTTS.stop();
+							$(this).find("img").attr("src", "/img/play.png");
+						}
+						sendGA(['_trackEvent', "emailView", "listenToEmail"]);
+					});
+
+					$("#fullEmailActionButtons").find(".emailZoom").off("change").on("change", {mail:mail, $mail:$mail}, function(event) {
+						
+						if (!zoomChanged) {
+							$fullEmailSenderAreas.find(".open, .reply").find("div").addClass("opacityPatch");
+						}
+						
+						var $threadBodies = $fullEmailContent.find(".threadBody");
+							
+					      $fixedArea.addClass('fixed');
+				    	  $fixedArea.css("right", "15px");
+							
+				    	  	$threadBodies.addClass("zoomed");
+				    	  	$threadBodies.css("zoom", $(this).val() + "%");
+							//$(this).val( $(this).val() );
+							
+			    	  	zoomChanged = true;
+					})
+
+					$("#fullEmailActionButtons").find(".delete").off("click").on("click", {mail:mail, $mail:$mail}, function(event) {
+						event.data.mail.deleteEmail();
+						hideFullEmail();
+						hideMail(event.data.$mail);
+						sendGA(['_trackEvent', "emailView", "delete"]);
+					});		
+
+					$("#fullEmailActionButtons").find(".archive").off("click").on("click", {mail:mail, $mail:$mail}, function(event) {
+						event.data.mail.archive();
+						hideFullEmail();
+						hideMail(event.data.$mail);
+						sendGA(['_trackEvent', "emailView", "archive"]);
+					});		
+
+					$("#fullEmailActionButtons").find(".spam").off("click").on("click", {mail:mail, $mail:$mail}, function(event) {
+						event.data.mail.markAsSpam();
+						hideFullEmail();
+						hideMail(event.data.$mail);
+						sendGA(['_trackEvent', "emailView", "spam"]);
+					});		
+					
+					$("#fullEmailActionButtons").find(".labels").off("click").on("click", {mail:mail, $mail:$mail}, function(event) {
+						$(this).blur();
+						
+						var $labelsDropDown = $(".labelsDropDown");
+						if ($labelsDropDown.is(":visible")) {
+							$labelsDropDown.slideUp();
+							return;
+						}
+						
+						$(".statusMessageWrapper").show();
+						event.data.mail.account.getLabels(function(params) {
+							$(".statusMessageWrapper").hide();						
+							$labelsDropDown.empty();
+							if (params.labels) {
+								$.each(params.labels, function(i, label) {
+									var $item = $("<div/>");
+									$item.text(label)
+									
+									$item.click({mail:mail, $mail:$mail}, function(event) {
+										$(".labelsDropDown").hide();
+										event.data.mail.applyLabel($(this).text());
+										hideFullEmail();
+									});
+									
+									$labelsDropDown.append($item);
+								});
+								var labelButton = $("#fullEmailActionButtons").find(".labels");
+								var top = labelButton.position().top;
+								var left = labelButton.position().left;
+								top += labelButton.height() + 11;
+								$labelsDropDown.css("top", top);
+								$labelsDropDown.css("left", left);
+								$labelsDropDown.slideDown();
+							} else {
+								alert("Sorry, problem fetching labels, try again later! Error: " + params.error);
+							}
+						});
+						sendGA(['_trackEvent', "emailView", "labels"]);
+					});		
+
+					$("#fullEmailContent").off("click")
+						.on("click", ".fullEmailSenderArea .star", {mail:mail, $mail:$mail}, function(event) {
+							$(this).addClass("clicked");
+							//rotate($(this));
+							event.data.mail.star();							
+							sendGA(['_trackEvent', "emailView", "star"]);
+							return false;
+						})
+						.on("click", ".fullEmailSenderArea .open", {mail:mail, $mail:$mail}, function(event) {
+							event.data.mail.open();
+							sendGA(['_trackEvent', "emailView", "open"]);
+							setTimeout(function() {
+								window.close();
+							}, 100);
+							return false;
+						})
+						.on("click", ".fullEmailSenderArea .reply", {mail:mail, $mail:$mail}, function(event) {
+							event.data.mail.reply();
+							sendGA(['_trackEvent', "emailView", "reply"]);
+							setTimeout(function() {
+								window.close();
+							}, 100);
+							return false;
+						})
+						.on("click", ".fullEmailSenderArea", {mail:mail, $mail:$mail}, function(event) {
+							var $thread = $(this).closest(".thread");
+							$thread.toggleClass("collapsed");
+							sendGA(['_trackEvent', "emailView", "threadExpand"]);
+							return false;
+						})
+						.on("click", ".fullEmailShowToCC", {mail:mail, $mail:$mail}, function(event) {
+							var $fullEmailSenderArea = $(this).closest(".fullEmailSenderArea");
+							var toCCHTML = $fullEmailSenderArea.attr("data-toCCHTML");
+							
+							$(this).parent().find(".fullEmailToCC").html(toCCHTML).addClass("showDetails");							
+					   		$(this).hide();
+					   		sendGA(['_trackEvent', "emailView", "toCC"]);
+							return false;
+						})
+					;
+					
+					$("#fullEmailSubject").html(mail.title).attr("title", mail.title);
+
+					var $fullEmailContent = $("#fullEmailContent");
+					$fullEmailContent.empty()
+						.scrollTop(0)
+						.scrollLeft(0)
+						.append(cbParams.body)
+					;
+
+					var $fullEmailSenderAreas = $fullEmailContent.find(".fullEmailSenderArea");
+
+					$fullEmailContent.scroll(function() {
+						console.log("scroll calle");
+					    var y = $(this).scrollTop();
+					    //console.log(y + " " + $(this).offset().top + " " + fixedAreaTop)
+					    if (y >= (fixedAreaTop-$(this).offset().top)) { ////$(this).offset().top
+					      $fixedArea.addClass('fixed');
+					      //if (inNotificationWindow) {
+					    	  $fixedArea.css("right", "15px");
+					      //}
+					    } else {
+					    	
+					    	var $threadBody = $(this).find(".threadBody");
+							if (!$threadBody.hasClass("zoomed")) {
+						      $fixedArea.removeClass('fixed');
+						      if (inNotificationWindow) {
+						    	  console.log("here")
+						      	$fixedArea.css("right", scrollingWidth-viewableWidth+notifFixedRightMargin);
+						      } else {
+						    	  $fixedArea.css("right", "0");
+						      }
+							}
+					    }
+					});
+					
+					if (!inNotificationWindow) {
+						setTimeout(function() {
+							if ($fullEmailContent.hasHorizontalScrollbar()) {
+								// patch: for some reason .stop() would remove my vertical scrollbars in my #inboxes putting overflow-y:hidden 
+								//$("#inboxes").stop();
+								$("#inboxes").animate({
+								    width: 0
+								}, 400, ["linear"], function() {
+									initialInboxesWidth = $("#body").width();
+									$("#fullEmailContent").css("width", initialInboxesWidth-0-6);
+								});
+							}
+						}, 500)
+					}
+					
+					// only modify body stuff once because it is passed as reference and remembered
+					if (!cbParams.body.data("addedThreadHeaders")) {
+						cbParams.body.data("addedThreadHeaders", true);
+
+						$fullEmailSenderAreas.each(function(i, fullEmailSenderArea) {
+							var $thread = $(this).closest(".thread");
+							var $threadHeader = $("#mailTemplate").clone();							
+							$threadHeader.removeAttr("id");
+							
+							var from = JSON.parse($(this).attr("data-from"));
+							$threadHeader.find(".author")
+								.text( from.name )
+								.attr("title", from.email )
+							;
+							var threadText = $(this).attr("data-threadText");
+							if (threadText) {
+								if (inNotificationWindow) {
+									threadText = threadText.summarize(35);
+								} else {
+									threadText = threadText.summarize(60);
+								}
+								$threadHeader.find(".summary").html( threadText );
+							}
+							
+							var date = $(this).attr("data-dateStr");
+							//date = "Thu, Mar 8, 2012 at 12:58 AM";
+							var parsedDate = parseGoogleDate(date);
+							if (parsedDate) {
+								date = parsedDate.displayDate(true);
+							}
+							$threadHeader.find(".date")
+								.html( date )
+								.data("data", date)
+							;
+							
+							$threadHeader.find(".fullEmailToCC")
+								.html( $(this).attr("data-cleanToCC") );
+							
+							if (Settings.read("showContactPhoto")) {
+								var $imageNode = $threadHeader.find(".contactPhoto");
+								if (photosDisplayed < MAX_PHOTOS_TO_SHOW) {
+									// function required to keep imageNode in scope
+									
+									var fromObj = JSON.parse($(this).attr("data-from"));
+									var contactPhotoParams = fromObj;
+									contactPhotoParams.mail = mail;
+									
+									setContactPhoto(contactPhotoParams, $imageNode);								
+									photosDisplayed++;
+								}
+							}
+							
+							// only collapse if not the last thread (leave the last one expanded)
+							if (i < $fullEmailSenderAreas.length-1) {
+								
+								// it's an email from this user, so ignore/collapse it
+								if (from.email == mail.account.getAddress()) {
+									$thread.addClass("collapsed");
+								} else {								
+								   if (parsedDate) {
+									   var lastCheckedEmail = localStorage["lastCheckedEmail"];
+									   if (lastCheckedEmail) {
+										   lastCheckedEmail = new Date(lastCheckedEmail);
+										   console.log(" diff ours: " + parsedDate.diffInHours() + " parse/lastch: " + parsedDate.diffInSeconds(lastCheckedEmail))
+										   console.log(" diff ours: " + parsedDate.diffInHours() + " parse/lastch: " + parsedDate.toString() + " " + lastCheckedEmail.toString())
+										   
+										   // more than 24 hours collapse it before last "supposedly" user checked emails
+										   if (parsedDate.diffInHours() <= -24 || parsedDate.diffInSeconds(lastCheckedEmail) < 0) {
+											   console.log("collapsed")
+											   $thread.addClass("collapsed");
+										   }
+									   } else {
+										   // never last checked, might be first install or something so collapse all
+										   $thread.addClass("collapsed");
+									   }
+								   } else {
+									   // can't parse the dtes so let's only collapse last
+									   $thread.addClass("collapsed");
+								   }
+								}
+							}
+
+							
+							$threadHeader.show();
+							
+							$(this).append($threadHeader);
+							
+							//$(this).html($(this).attr("data-toCCHTML"));
+						});
+					}				
+					
+					if (markAsReadSetting) {
+						if (!$mail.hasClass("read")) {
+							updateUnreadCount($mail, -1); // must do this before remove 'read' class
+							$mail.addClass("read");
+						}					
+					}
+
+					$fullEmail.slideDown(function() {
+
+						$fixedArea = $fullEmailContent.find(".emailDetailsTopRight").last();
+						$fixedArea.removeClass('fixed');
+						fixedAreaTop = $fixedArea.offset().top;
+
+						if (inNotificationWindow) {
+							setTimeout(function() {
+								console.log("timeout 100 set scorllingwiwdth")
+								scrollingWidth = $(".fullEmailBody .thread").last().width();
+								viewableWidth = $("html").width()
+								console.log(scrollingWidth + " " + viewableWidth);
+								if (scrollingWidth > viewableWidth) {
+									$fixedArea.css("right", scrollingWidth-viewableWidth+notifFixedRightMargin);
+								}		
+							}, 100);
+						}
+						console.log("count: " + $fullEmailContent.find(".thread:not(.collapsed)").length);
+						var $firstUncollapsedThread = $fullEmailContent.find(".thread:not(.collapsed)").first();
+						var targetOffset = $firstUncollapsedThread.position().top;
+						if (inNotificationWindow) {
+							targetOffset -= 33;
+						} else {
+							targetOffset -= 93;
+						}
+						
+						if (targetOffset > 0) {
+							console.log('scrolltop')
+							$fullEmailContent.animate({scrollTop: targetOffset}, 700);
+						}
+						
+						if (markAsReadSetting) {
+							mail.markAsRead();
+							$mail.find(".markAsRead").hide();
+							$mail.find(".markAsUnread").show();						
+						}
+					});
+					
+					callback();
+				}
+			});
+		}
+
+	}, 0);
+	
+}
+
+function hideMail(o, stayOpen) {
+	
+	updateUnreadCount(o, -1);
+	
+   var $inbox = $(o).closest(".inbox");
+   var $mail = $(o).closest(".mail");
+   var unreadCount = $inbox.find(".unreadCount").text();
+
+	$mail.animate({
+	    opacity: 0,
+	    height: 0
+	}, 200, ["swing"], function() {
+		$(this).hide();
+	   if (totalUnreadCount == 0) {
+		  if(!stayOpen) { 
+			  if (window) {
+				  initPopup(0);
+				  window.close();				
+			  }
+		  }
+	   } else if (unreadCount == 0) {
+		  $inbox.find('.toggleLink').hide('fast');		  
+	   }
+	});
+}
+
+var animationSpeed = 250;
+var previousHeight;
+function expandWindow() {
+   previousHeight = $('body').height();
+
+   $('html').animate({
+      width: [750, 'swing']
+      //height: [500, 'swing']
+   }, animationSpeed);
+
+   //$('#content').slideUp();
+}
+
+function contractWindow() {
+   $('html').animate({
+      width: [500, 'swing']
+      //height: [previousHeight, 'swing']
+   }, animationSpeed);
+
+   $('#content').slideDown();
+   previousHeight = 0;
+}
+
+function displayAccounts() {
+	unreadCount = 0;
+	photosDisplayed = 0;
+	$('#content').empty();
+
+	$.each(accounts, function (i, account) {
+		unreadCount += account.getUnreadCount();
+		
+		if (inNotificationWindow && account.getUnreadCount() == 0) {
+			// don't display this account
+			//$account.find(".inboxLabelAreaWrapper").hide();
+		} else {
+	      	renderAccount(account);
+		}
+	});
+	
+	if (unreadCount >= 2) {
+		$("html").addClass("compact");
+	}
+	if (unreadCount >= 3) {
+		$("html").addClass("veryCompact");
+	}
+	if (unreadCount >= 4) {
+		$("html").addClass("extremelyCompact");
+	}
+	
+	updateBadge(unreadCount);
+}
+
+function setContactPhoto(params, imageNode) {
+	// contact photo
+	getContactPhoto(params, function(cbParams) {
+		if (cbParams.contact && !cbParams.error) {
+			imageNode.on("error", function() {
+				imageNode.attr("src", "img/noPhoto.png");
+			});
+			
+			// used timeout because it was slowing the popup window from appearing
+			setTimeout(function() {
+				imageNode.attr("src", cbParams.generatedURL);
+			}, 10);
+		} else {
+			var name, email;			
+			if (params.name) {
+				name = params.name;				
+			} else {
+				name = params.mail.authorName;
+			}
+			if (name == "Twitter") {
+				imageNode.attr("src", "img/logos/twitter.png");
+				imageNode.css("background", "none");
+			} else if (name == "Facebook") {
+				imageNode.attr("src", "img/logos/facebook.png");
+				imageNode.css("background", "none");
+			}
+		}
+	});
+}
+
+function setInboxLabelArea($inbox, unreadCount) {
+	var $unreadCountNode = $inbox.find(".unreadCount");
+	$unreadCountNode.data("data", unreadCount);
+	if (unreadCount >= 1) {
+		$unreadCountNode.text("(" + unreadCount + ")");
+	} else {
+		$unreadCountNode.text("");
+	}
+	$inbox.find(".inboxLabelArea").toggleClass("hasUnread", unreadCount != 0);	
+}
+
+function updateUnreadCount(o, offset) {
+	
+	if (o.hasClass("read") && offset == -1) {
+		// alrady read so don't do anything
+		return;
+	}
+	if (!o.hasClass("read") && offset == 1) {
+		// alrady unread so don't do anything
+		return;
+	}
+	
+	var $inbox = $(o).closest(".inbox");
+	
+	$unreadCountNode = $inbox.find(".unreadCount");
+	
+	var unreadCount = $unreadCountNode.data("data");
+	unreadCount += offset;
+	
+	setInboxLabelArea($inbox, unreadCount);
+
+	totalUnreadCount += offset;
+	
+	updateBadge(totalUnreadCount);
+}
+
+function markAsRead(o, mail) {
+	mail.markAsRead();
+	hideMail(o);
+}
+
+function markAsUnread(o, mail) {
+	mail.markAsUnread();
+	o.find(".markAsUnread").hide();
+	o.find(".markAsRead").show();
+	updateUnreadCount(o, +1); // must do this before remove 'read' class
+	o.removeClass("read");
+}
+
+function renderAccount(account) {
+	var emails = account.getMail();
+	
+	//account.getNewAt();
+
+	// Render account
+	if (emails) {
+		//account.unreadCount = emails.length;
+	}
+
+	$account = $("#accountTemplate").clone();
+	$account
+		.removeAttr("id")
+		.data("data", account)
+	;
+	
+	if (accounts >= 2) { 
+		$account.addClass("indicator i" + (account.id % 4));
+	}
+
+	// must put the '.find's separaterly because you .find().find is aggregate
+	var inboxForStr;
+	
+	if (inNotificationWindow) {
+		inboxForStr = account.getAddress();
+	} else {
+		inboxForStr = getMessage("inboxFor", account.getAddress());
+	}
+	
+	if (account.error) {
+		inboxForStr += " (Error: " + account.error + ")";
+	}
+	
+	$account.find(".inboxFor").text(inboxForStr);
+	$account.find(".inboxLabelArea").click({account:account}, function(event) {
+		openInbox(event.data.account.id);
+		sendGA(['_trackEvent', "inboxLabelArea", "click"]);
+	});
+	$account.find(".compose").click({account:account}, function(event) {
+		sendGA(['_trackEvent', "inboxLabelArea", "compose"]);
+		var composeURL = event.data.account.getURL() + "?view=cm&fs=1&tf=1";
+		if (Settings.read("open_tabs")) {
+			chrome.tabs.create({ url: composeURL });
+		} else {
+			window.open(composeURL, null, 'width=640,height=580');
+		}		
+		return false;
+	});
+	$account.find(".sendPageLink").click({account:account}, function(event) {
+		chrome.tabs.getSelected(null, function (tab) {
+			sendGA(['_trackEvent', "inboxLabelArea", "sendPageLink"]);
+	
+			var body = encodeURIComponent(unescape(tab.url));
+		    var subject = encodeURIComponent(unescape(tab.title));
+		    subject = subject.replace('%AB', '%2D'); // Special case: escape for %AB
+		    var urlToOpen = event.data.account.getURL() + "?view=cm&fs=1&tf=1" + "&su=" + subject + "&body=" + body;
+			if (Settings.read("open_tabs")) {
+				chrome.tabs.create({ url: urlToOpen });
+			} else {
+				window.open(urlToOpen, null, 'width=640,height=580');
+			}		
+	      window.close();
+		});
+		return false;
+	});
+
+	setInboxLabelArea($account.find(".inbox"), account.getUnreadCount());
+
+	$account.fadeIn("fast").appendTo("#content");
+
+	var inboxNode = $account.find(".inbox");
+	var emailsNode = $account.find(".emails");
+
+	if (emails) {
+		for (var a=emails.length-1; a>=0; a--) {
+			var mail = emails[a];
+			
+			$mail = $("#mailTemplate").clone();
+			$mail
+				.removeAttr("id")
+				.data("data", mail)
+			;
+			
+			// add analytics here instead of leaving it to common.js because the .clicks below return falses
+			$mail.find(".button, .icon").click(function() {
+				id = $(this).attr("class").split(" ")[1];
+				// category, action
+				sendGA(['_trackEvent', "inbox", id]);
+			});
+			
+			$mail.find(".delete").click({account:account, mail:mail, $mail:$mail}, function(event) {
+				event.data.mail.deleteEmail();
+				hideMail(event.data.$mail);
+				return false;
+			});		
+			$mail.find(".archive").click({account:account, mail:mail, $mail:$mail}, function(event) {
+				event.data.mail.archive();
+				hideMail(event.data.$mail);
+				return false;
+			});		
+			$mail.find(".spam").click({account:account, mail:mail, $mail:$mail}, function(event) {
+				event.data.mail.markAsSpam();
+				hideMail(event.data.$mail);
+				return false;
+			});		
+			$mail.find(".markAsRead").click({account:account, mail:mail, $mail:$mail}, function(event) {
+				markAsRead(event.data.$mail, event.data.mail);
+				return false;
+			});
+			$mail.find(".markAsUnread").click({account:account, mail:mail, $mail:$mail}, function(event) {
+				markAsUnread(event.data.$mail, event.data.mail);
+				return false;
+			});
+			$mail.find(".open").click({account:account, mail:mail}, function(event) {
+				event.data.mail.open();
+				setTimeout(function() {
+					window.close();
+				}, 100);
+				return false;
+			});
+			$mail.find(".reply").click({account:account, mail:mail}, function(event) {
+				event.data.mail.reply();
+				setTimeout(function() {
+					window.close();
+				}, 100);
+				return false;
+			});
+			
+			$mail.find(".star").click({mail:mail}, function(event) {
+				$(this).addClass("clicked");
+				//rotate($(this));
+				event.data.mail.star();
+				return false;
+			});
+			
+			var shortVersion = inNotificationWindow;
+			$mail.find(".author").replaceWith( mail.generateAuthorsNode(shortVersion) );
+			
+			$mail.find(".subject").html(mail.shortTitle); //.attr("title", mail.title)			
+			$mail.find(".date")
+				.html( mail.issued.displayDate(true))
+				.data( "data", mail.issued )
+			;			
+			
+			$mail.find(".summary").html( mail.getLastThreadText().summarize(98) );
+			
+			$mail.find(".emailDetails").click({account:account, mail:mail, $mail:$mail}, function(event) {				
+				$(".statusMessageWrapper").show();
+				showFullEmail(event.data.$mail, function() {
+					$(".statusMessageWrapper").hide();
+					//expandWindow();
+				});
+				sendGA(['_trackEvent', "inbox", "expand"]);
+			});		
+
+			
+			if (Settings.read("showContactPhoto")) {      
+				$mail.find(".contactPhoto").css("display", "block");
+			}
+
+			$mail.fadeIn(500).prependTo(emailsNode);
+		}
+
+		if (emails.length == 0) {
+			inboxNode.find(".toggleLink").addClass("hidden");
+		}
+
+		if (Settings.read("showContactPhoto")) {
+			bg.oAuthForDevices.initToken(account.getAddress(), function(cbParams) {
+				if (!cbParams.error) {
+					$(".mail").each(function() {
+						var mail = $(this).data("data");
+						if (mail) {
+							var $imageNode = $(this).find(".contactPhoto");
+							
+							if (photosDisplayed < MAX_PHOTOS_TO_SHOW) {
+								// function required to keep imageNode in scope
+								setContactPhoto({mail:mail}, $imageNode);								
+								photosDisplayed++;
+							}
+						}
+					});
+				} else {
+					console.error("error: " + cbParams.error);
+				}
+			});
+		}
+
+		inboxNode.find(".toggleLink").click(function () {
+			if (!$("#inboxes").hasClass("squished")) {
+				//setFixedWidth();				
+			}
+			inboxNode.find('.mail').slideToggle('fast');
+			if ($(this).find('img').attr('src') == 'img/arrow_right.png') {
+				$(this).find('img').attr('src', 'img/arrow_down.png')
+			} else {
+				$(this).find('img').attr('src', 'img/arrow_right.png')
+			}
+			sendGA(['_trackEvent', "inboxFold", "click"]);
+		});
+	}	
+}
+
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+	if (request.name == "addNewNotifications") {
+		if (!mouseInPopup) {
+			location.reload(true);
+		}
+	}
+})
+
+$(document).ready(function () {
+	if (inNotificationWindow) {
+		$("html").addClass("notif");
+		
+		var accountsWithUnreadMail = 0;
+		$.each(accounts, function(i, account) {
+			if (account.getUnreadCount()) {
+				accountsWithUnreadMail++;
+			}
+		});
+		
+		if (!Settings.read("showEmailAccount") && accountsWithUnreadMail == 1) {
+			$(".inbox.rounded").removeClass("rounded");
+			$("html").addClass("hideInbox");
+		}
+	} else {
+		// opening reglar popup so close notification window if open
+		if (bg.notification) {
+			bg.notification.cancel();
+		}
+	}
+
+	var markAsReadStr = getMessage("readLinkTitleShort");
+	if (markAsReadStr) {
+		//$("html.notif .markAsRead div").text(markAsReadStr);
+		$("#fullEmail .markAsRead div, html.notif .markAsRead div").text(markAsReadStr);
+	}
+	var markAsUnreadStr = getMessage("unreadLinkTitleShort");
+	if (markAsUnreadStr) {
+		//$("html.notif .markAsUnread div").text(markAsUnreadStr);
+		$("#fullEmail .markAsUnread div, html.notif .markAsUnread div").text(markAsUnreadStr);
+	}
+	
+   bg.stopAnimateLoop();
+   
+   initButtons();
+   showHideButtons();
+   
+   var delayBeforeDisplaying;
+   // patch for mac: popup window was distorted
+   if (navigator.platform && (navigator.platform.toLowerCase().indexOf("mac") != -1 || navigator.platform.toLowerCase().indexOf("linux") != -1 || navigator.platform.toLowerCase().indexOf("unix") != -1)) {
+	   delayBeforeDisplaying = localStorage["delayBeforeDisplaying"];
+	   if (!delayBeforeDisplaying) {
+		   delayBeforeDisplaying = 100;
+	   }
+   } else {
+	   delayBeforeDisplaying = 0;
+   }
+   
+   setTimeout(function() {
+
+	   displayAccounts();
+	   
+	   if (!accounts || accounts.length == 0) {
+		   $("#signIn").show();
+	   }
+	   
+	   $(window).unload(function() {
+		   if (mouseHasEnteredPopupAtleastOnce) {
+			   localStorage["lastCheckedEmail"] = now().toString();
+		   }
+	   });
+	   
+	   setCloseTimeout();
+	   
+		$('body').hover(function () {
+			clearTimeout(closeTimeout);
+			mouseInPopup = true;
+			if (!mouseHasEnteredPopupAtleastOnce) {
+				console.log("stop any speaking")
+				bg.ChromeTTS.stop();
+			}
+			mouseHasEnteredPopupAtleastOnce = true;
+		}, function () {
+			setCloseTimeout();
+			mouseInPopup = false;
+		});
+
+		// patch: if the window has focus disable simulated tooltips because window's tooltips work again
+		$("html").mousedown(function() {
+			if (simulateToolTips) {
+				simulateToolTips.disable();
+			}
+		});
+
+	   if (Settings.read("showOptionsButton")) {
+		   $("#options").click(function() {
+			   chrome.tabs.create({ url: "options.html" });
+		   });
+	   } else {
+		   $("#options").hide();
+	   }
+		   
+	   $("#refresh").click(function() {
+		   var rotationInterval = rotate($(this), {forever:true});
+		   
+		   $(".statusMessageWrapper").show();
+		   if (accounts) {
+			   // init an empty/resolved deferred object to start appending/piping to
+			   //var dfd = (new $.Deferred()).resolve("success").promise();
+			   
+			   getAllEmails(accounts, function() {
+				   $(".statusMessageWrapper").hide();
+				   bg.mailUpdate();
+				   totalUnreadCount = bg.unreadCount;
+				   displayAccounts();
+				   clearInterval(rotationInterval);
+			       	//$("#refresh").css({WebkitTransition: "none", WebkitTransform: "none"});
+			   });
+		   } else {
+			   bg.pollAccounts(function() {
+				   bg.mailUpdate();
+				   location.reload(true);
+			   });
+		   }
+		   sendGA(['_trackEvent', "refresh", "click"]);
+	   });
+
+	   $("#close").click(function() {
+		   sendGA(['_trackEvent', "close", "click"]);
+		   window.close();
+	   });
+
+	   $(".backToInbox").click(function() {
+		   hideFullEmail();
+		   sendGA(['_trackEvent', "backToInbox", "click"]);
+	   });
+	   
+	   if (inNotificationWindow) {
+			simulateToolTips = SimulateToolTips();
+	   }
+	   
+	   // remove it after a little whilte, just irritating
+	   setTimeout(function() {
+		   $(".emailDetails").removeAttr("title");
+	   }, 2000)
+	   
+	   setInterval(function() {
+		   $(".date").each(function(i, element) {
+			   var date = $(this).data("data");
+			   if (date) {
+			   		$(this).html( date.displayDate(true) );
+			   }
+		   });
+	   }, ONE_MINUTE);
+	   
+   }, delayBeforeDisplaying);
+
+});
+   </script>
+
+   <title>Gmail+ - Popup page</title>
+</head>
+<body id="body">
+
+	<div id="stretcher" class="hide" style="width:2000px"></div>
+
+	<div class="statusMessageWrapper">
+		<div id="statusMessage" class="statusMessage" msg="loading">loading.....</div>
+	</div>
+
+    <div id="header">
+		<a id="title" target="_blank" href="http://mail.google.com">Gmail+&trade;</a></span> <span id="by">by <a id="freeuser" target="_blank" 
+href="http://mail.google.com">godmachine</a></span>
+    </div>
+
+    <div id="menu">
+        <div id="options" class="icon optionsIcon" msgTitle="options" style="margin-right:2px"></div> <div id="refresh" class="icon refresh" msgTitle="refreshLinkTitle" style=""></div> <div id="close" class="icon close" msgTitle="close" style="margin-right:5px"></div> 
+    </div>
+    
+    <div id="signIn" class="hide" style="clear:both;text-align:center;margin:10px"><a style="text-decoration:underline;font-size:20px" target="_blank" href="https://mail.google.com" msg="signIn">singin</a></div>
+    
+    <div id="scrollAreaWrapper">
+    	<div id="scrollArea" style="xxxwidth:2000px">
+    		<div id="inboxes" style="xxxwidth:660px;">
+		    	<div id="content"></div>
+	    	</div>
+	    	<div id="fullEmail" class="hide">
+	    		<div id="fullEmailActionButtons">
+	    			<div class="button backToInbox spaceRight" msgTitle="backToInbox" tabindex=0><div></div></div> <div class="button archive hugRight" msgTitle="archiveLink" tabindex=1><div></div></div><div class="button spam hugRight" msgTitle="spamLinkTitle" tabindex=2><div></div></div><div class="button delete spaceRight" msgTitle="deleteLink" tabindex=3><div></div></div> <div class="button labels spaceRight" msgTitle="labels" tabindex=4><div></div><div></div></div> <div class="button markAsUnread" tabindex=5><div msg="unreadLinkTitle" msgTitle="unreadLinkTitle">mark as ureee</div></div><div class="button markAsRead" style="display:none" tabindex=6><div msg="readLinkTitle" msgTitle="readLinkTitle">mark as ureee</div></div>
+	    			<div id="topRightControls">
+						<a class="listenToEmail" msgTitle="listenToYourEmail" href="javascript:;"><img src="/img/play.png"/></a> <input class="emailZoom" msgTitle="zoom" type="range" min="40" step="1" max="120" value="100"/>
+					</div>
+	    			<div class="labelsDropDown"></div>
+	    		</div>
+   				<div id="fullEmailSubjectArea">
+   					<div id="fullEmailSubject"></div>
+   				</div>
+	    		<div id="fullEmailContent">
+	    			
+	    		</div>
+    		</div>
+    	</div>
+    </div>
+
+	<div id="accountTemplate" class="account" style="display:none">
+		<div class="inbox vbox rounded">
+			<div class="inboxLabelAreaWrapper hbox wide">
+				<div class="hbox toggleLink"><img src="img/arrow_down.png" /></div>
+				<div class="inboxLabelArea hbox wide" msgTitle="open">
+					<div class="hbox wide inboxLink">
+						<span class="inboxFor"></span> <span class="unreadCount"></span> <div class="icon open"></div>						 
+					</div>
+					<div class="inboxActions">
+						<div class="sendPageLink" msgTitle="sendPageLinkTitle" ></div> <div class="button compose" style="" msgTitle="composeLinkTitle"><div msg="compose">compose</div></div> <div class="button open" msgTitle="open"><div></div></div>
+					</div>
+				</div>
+			</div>
+			<div class="emails"></div>
+		</div>
+	</div>
+
+	<div id="mailTemplate" class="mail vbox" style="display:none">
+		<div class="hbox wide">
+			<div class="imageArea vbox">
+				<img class="contactPhoto" src="img/noPhoto.png" />
+			</div>
+			<div class="emailDetails vbox wide" msgTitle="clickToPreviewEmail">
+				<span class="author"></span>
+				<div class="emailDetailsTopRight">
+					<div class="date"></div><div class="icon star" msgTitle="starLinkTitle"></div> <div class="quickActions"><div class="button archive hugRight" msgTitle="archiveLink" tabindex=1><div></div></div><div class="button spam hugRight" msgTitle="spamLinkTitle" tabindex=2><div></div></div><div class="button delete" msgTitle="delete" tabindex=3><div></div></div> <div class="button markAsUnread" style="display:none" tabindex=4><div msg="unreadLinkTitle">mark as ureee</div></div> <div class="button markAsRead" msgTitle="readLinkTitle" tabindex=5><div msg="readLinkTitle">mark as readdd</div></div></div> <div class="button reply hugRight" msgTitle="reply" tabindex=6><div></div></div><div class="button open" msgTitle="openReply" tabindex=7><div></div></div>
+				</div>
+				<div class="hbox subject"></div>
+				<div class="summary vbox"></div>
+				<div class="fullEmailToCCWrapper">
+					<span class='fullEmailToCC'></span> <div class='fullEmailShowToCC' msgTitle="showDetails">...</div>
+				</div>
+			</div>
+			<!--div class="spacer vbox"></div-->
+		</div>
+	</div>
+    
+</body>
+</html>

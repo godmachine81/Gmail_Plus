@@ -1,0 +1,862 @@
+﻿<!DOCTYPE html>
+<html>
+   <head>
+	   <title>Gmail+ - 
+Options</title>
+	   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	   <link rel="stylesheet" type="text/css" media="screen" href="css/common.css" />
+	   <link rel="stylesheet" type="text/css" media="screen" href="css/checkerPlusForGmail.css" />
+
+		<script type="text/javascript" src="src/jquery.min.js"></script>
+		<script type="text/javascript" src="src/DB.js"></script>
+		<script type="text/javascript" src="src/settings.js"></script>
+		<script type="text/javascript" src="src/common.js"></script>
+   		<script type="text/javascript" src="src/checkerPlusForGmail.js"></script>
+		<script type="text/javascript" src="src/mailaccount.class.js"></script>
+		<style>
+
+			body {font-family: arial, sans-serif;font-size: 80%;background: #6BACCF;color: #fff;}
+			body a, body a:visited {color: #fff;text-decoration: none;border-bottom: 1px dotted #fff;}
+			body a:hover {border-bottom: 1px solid #fff;}
+			h1 {margin-top: 0;}
+			h1.title {font-size: 200%;}
+			
+			fieldset {border-radius:5px}
+			fieldset.options {border:1px solid transparent;padding-top:0;padding-bottom:0;border-radius:5px}
+			fieldset.selected {padding-bottom:5px;margin-bottom:8px;border:1px solid #ccc;background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#f3f3f3))}
+			fieldset.selected legend {xfont-weight:bold;padding-bottom:5px;border-radius:4px}
+			fieldset .subOptions input {margin-left:6px}
+			.singleOption {margin-left:18px}
+			
+			#emailsSettings {padding:7px}
+			
+			#main {margin: 0 auto;margin-top:20px;text-align: center;}
+			#main input {margin-top: 5px;}
+			table {border-width: 5px;border-color: gray;border-collapse: separate;background-color: #fff;color: #000;position: relative;text-align: left;}
+			table a, table a:visited {color: #000;text-decoration: none;border-bottom: 1px dotted #000;}
+			table a:hover {border-bottom: 1px solid #000;}
+			td {margin:0;padding:0}
+			form {margin: 0 auto;padding: 0;}
+			#languages {font-size:90%;height:20px;width:110px}
+			.content {float: left;padding:3px 10px 10px 20px;border-left: 1px dashed #ccc}
+			ul.menu {padding: 0;margin: 0;list-style-type: none;float: left;min-width:120px}
+			ul.menu li {padding: 0;list-style: none;display: block;clear: both;width: 100%;border-bottom: 1px dashed #ccc;}
+			ul.menu li a {display: block;clear: both;padding: 10px;border: 0;background: #eee;color: #000;font-size: 100%;font-weight: bold;}
+			ul.menu li a:hover, ul.menu li a.active {background-color: #6BACCF;color: white;}
+			
+			.section {xxxfont-weight:bold;xxxtext-decoration:underline}
+			#backgroundAppsWarning a {color:blue;text-decoration:underline;border-bottom:none}
+			*[msg]:hover, *[msgToolTip]:hover {opacity:1;text-shadow:1px 1px 2px #999}
+			
+			.newFeature {margin-left:10px;white-space:nowrap;color:green;font-weight:bold;text-shadow:1px 1px 2px #999}
+			.donationFeature {opacity:0.3}
+			
+			.previewing {opacity:1}
+			
+			#showButtons .buttonWrapper {margin-right:16px}
+			.button {padding:2px 8px;cursor:auto !important}
+			.button:hover {border:1px solid #ccc;opacity:0.55 !important}
+			
+			.themeWrapper {margin-right:15px}
+			.previewTheme {font-size:10px;color:black !important}
+			
+			.buttonWrapper label {opacity:1}
+			
+			.rangeLabel {margin-left:5px;font-size:12px;color:gray}
+			input[type='range'] {height:10px;width:50px}
+		</style>
+		
+		<script>
+		var bg = chrome.extension.getBackgroundPage();
+		var Settings = bg.getSettings();
+		var ignoreOptionChangeInPage = false;
+		var lastFocusDate = now();
+		
+		$(document).ready(function() {
+
+			initToolTips();
+
+			// (statment not true anymore, i realized i just forgot to cancel .click and .change events :) (old statemment:must place this at BOTTTOM because we might want to cancel .changes
+			initPrefAttributes();
+			
+			$(window).focus(function(event) {
+				// patch: focus was called twice?? so check that atleast 2 seconds has gone by
+				if ((now().getTime() - lastFocusDate.getTime()) > 2000) {
+					lastFocusDate = now();
+					
+					// reload voices
+					console.log("focus: " + now())
+					loadVoices();
+				}
+			});
+			
+			$("#voice").change(function() {
+				if ($(this).val().indexOf("Multilingual TTS Engine") != -1) {
+					$("#pitch, #rate").attr("disabled", "true");
+				} else {
+					$("#pitch, #rate").removeAttr("disabled");
+				}
+				
+				if ($(this).val() == "addSpeechEngine") {
+					chrome.tabs.create({url: ""});
+					return false;
+				}
+				return true;
+			});
+			
+			loadVoices();
+			
+			$("#playVoice").click(function() {
+				bg.ChromeTTS.queue("testing the voice");
+			});
+			
+			$("h1.title").click(function() {
+				//location = "donate.html";
+			});
+			
+			if (navigator.platform.toLowerCase().indexOf("mac") != -1) {
+				$("#multipleSelectionInfo").text(getMessage("multipleSelectionMac"));
+			} else {
+				$("#multipleSelectionInfo").text(getMessage("multipleSelectionWindows"));
+			}
+			
+			$("#hide_count").change(function() {
+				bg.updateBadge(bg.unreadCount);
+			});
+			
+			$("#languages").change(function() {
+				loadLocaleMessages($(this).val(), function() {			
+					initMessages();
+					//window.location.href = setUrlParam(window.location.href, "languageChange", "true");
+				});
+			});
+			
+			$("#icon_selection").on("change", "input[name='icon_set']", function() {
+				bg.iconSet = Settings.read("icon_set");
+				bg.updateBadge(bg.unreadCount);	
+			});
+			
+			$("input[name='preview_setting']").change(function() {
+				initPopup(bg.unreadCount);
+			});
+			
+			if (getBrowserVersion() < 16) {
+				$("#runInBackgroundWrapper").hide();
+			} else {
+				chrome.permissions.contains({
+					permissions: ['background']
+				}, function(result) {
+					$("#runInBackground").get(0).checked = result;
+				});
+			}
+			
+			$("#runInBackground").click(function() {
+				if (this.checked) {
+					chrome.permissions.request({
+						permissions: ['background']
+					}, function(granted) {
+						if (granted) {
+							$("#backgroundAppsWarning").slideDown();
+						} else {
+							$("#runInBackground").get(0).checked = false;
+						}
+					});
+				} else {			
+					chrome.permissions.remove({
+						permissions: ['background']
+					}, function(removed) {
+						if (removed) {
+							// The permissions have been removed.
+							$("#backgroundAppsWarning").slideUp();
+						} else {
+							// The permissions have not been removed (e.g., you tried to remove
+							// required permissions).
+							alert("error removing permission");
+							$("#runInBackground").get(0).checked = true;
+						}
+					});
+				}
+			});
+			
+			chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+				if (request.command == "grantPermissionToContacts") {
+					Settings.store("showContactPhoto", true);
+					if ($("#emailsGrantedPermissionToContacts").html().indexOf(request.contactDataItem.userEmail) == -1) {
+						$("#emailsGrantedPermissionToContacts").append("&nbsp;" + request.contactDataItem.userEmail);
+					}
+					
+					// if not already checked, meaning granting access to 2nd or more account
+					if (!$("#showContactPhoto").prop("checked")) {
+						$("#showContactPhoto").prop("checked", true);
+						ignoreOptionChangeInPage = true;
+						$("#showContactPhoto").change();
+						ignoreOptionChangeInPage = false;
+						//$("#showContactPhotoOptions").slideDown();
+					}
+				}
+			});
+
+			var navLang = pref("language", window.navigator.language);
+			if ($("#languages").find("option[value='" + navLang + "']").exists()) {
+				$("#languages").val(navLang);
+			} else if ($("#languages").find("option[value='" + navLang.substring(0, 2) + "']").exists()) {
+				$("#languages").val(navLang.substring(0, 2));
+			} else {
+				$("#languages").val("en");
+			}
+
+			$('#sn_audio_enc').val(Settings.read("sn_audio_raw"));
+
+			$('#sn_audio').change(function () {
+				if (this.value == "custom") {
+					$('#sn_audio_src').show();
+				} else {
+					$('#sn_audio_src').hide();
+				}
+			});
+
+			if (Settings.read("sn_audio") != "custom") {
+				$('#sn_audio_src').hide();
+			}
+			
+			var userEmails = bg.oAuthForDevices.getUserEmails();
+			$.each(userEmails, function(index, userEmail) {
+				$("#emailsGrantedPermissionToContacts").append(userEmail + "&nbsp;");
+			});
+
+			$("#showContactPhoto").change(function(event) {
+				if (!ignoreOptionChangeInPage) {
+					if (this.checked) {
+						this.checked = false;
+						
+						// must reset it to false because it gets saved as true from initprefse etc..
+						Settings.store("showContactPhoto");
+						
+						bg.oAuthForDevices.openPermissionWindow();
+						event.stopImmediatePropagation()
+						//$(this).change();
+						/*
+						   oauth2.login(req, function(token) {
+							   alert("Got an OAuth token:\n" + token + "\n"
+									   + "Token expires in " + oauth2.expiresIn(req) + " ms\n");
+							   localStorage["token"] = token;
+						   }, function(error) {
+							   alert("Error:\n" + error);
+						   });
+						 */
+					} else {
+						//$(this).change();
+						//$("#showContactPhotoOptions").slideUp();
+					}
+				}
+			});
+			
+			$("#grantAccessAgain").click(function() {
+				bg.oAuthForDevices.openPermissionWindow();
+			});
+			
+			$("#pollNow").click(function() {
+				bg.pollAccounts({showNotification:true}, function() {
+					location.reload();
+				});
+				return false;
+			});
+			
+			$(".themeWrapper").hover(function() {
+				//$("#previewVoythasButtons").css("opacity", 0);
+				
+				// temporarily disable donation fade
+				//$(".buttonWrapper label").addClass("previewing")
+				
+				var theme = $(this).attr("themeID");
+				initButtons( theme );
+				//$("html").removeClass("buttonsoriginal");
+				//$("html").addClass("buttonsvoythas");
+			}, function() {
+				//$("#previewVoythasButtons").css("opacity", 1);
+				
+				//$(".buttonWrapper label").removeClass("previewing")
+				
+				initButtons();
+				//$("html").removeClass("buttonsvoythas");
+				//$("html").addClass("buttons" + Settings.read("buttons"));
+			});
+
+			var contentID = location.href.split("#")[1];
+			if (contentID != null) {
+				showContent(contentID);
+			}
+			
+			initOptions();
+			
+			initButtons();
+			
+			$("input[name='buttons']").change(function() {
+				initButtons();
+			});
+
+
+			if (pref("donationClicked")) {
+				$(".donationFeature").removeClass("donationFeature");
+				$(".previewTheme").hide();
+			} else {
+				$("*[mustDonate]").each(function(i, element) {
+					$(this).next().addClass("donationFeature");
+				});
+			}
+
+		    $("#headerLogo").dblclick(function() {
+		    	if (Settings.read("donationClicked")) {
+		    		Settings.store("donationClicked");
+		    	} else {
+		    		Settings.store("donationClicked", true)
+		    	}
+		    	location.reload(true);
+		    });
+
+			chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
+				$(".donationFeature").removeClass("donationFeature");
+				
+			});
+
+		});
+
+		// Restores input states to saved values from stored settings.
+		function loadLabels(labels) {
+		    $(labels).each(function (i) {
+		        $("#labels")[0].add(new Option(labels[i]));
+		    });
+		}
+
+		function showContent(contentId) {
+			
+			loadAccountsOptions();
+			
+		    $('.content').each(function (index) {
+		        if (!($(this).hasClass('hide'))) {
+		            $(this).addClass('hide');
+		        }		            
+		        if (index == contentId) {
+		            $(this).removeClass('hide');
+		        }
+		    });
+
+		    $('ul.menu > li > a').each(function (index) {
+		        $(this).removeClass('active');
+
+		        if (index == contentId) {
+		            $(this).addClass('active');
+		            location.href = location.href.split("#")[0] + "#" + contentId;
+		        }		        
+		    });
+		}
+		
+		function loadAccountsOptions() {
+			if (bg.accounts.length) {
+				$("#emails").empty();
+			}
+			$.each(bg.accounts, function (i, account) {
+				var $option = $("<option> " + account.getAddress() + "</option>");
+				$option.data("data", account);
+				
+				$("#emails").append( $option );
+			});
+			
+			var $checkLabelSelect = $("#check_label");
+			var $openLabelSelect = $("#open_label");
+			
+			$("#emails").off("change").on("change", function() {
+				var account = $("option:selected", this).data("data");
+				
+				if (account) {
+				
+					$checkLabelSelect.empty();
+					$openLabelSelect.empty();
+	
+					var $option;
+					
+					$option = $("<option value=''>" + getMessage("inbox") + "</option>");
+					$checkLabelSelect.append($option);
+					$option = $("<option value='important'>" + getMessage("importantMail") + "</option>");
+					$checkLabelSelect.append($option);
+					$option = $("<option value='unread'>" + getMessage("allMail") + "</option>");
+					$checkLabelSelect.append($option);
+					$option = $("<option value='--' disabled>" + "--" + "</option>");
+					$checkLabelSelect.append($option);
+					
+					$option = $("<option value='#inbox'>" + getMessage("inbox") + "</option>");
+					$openLabelSelect.append($option);
+					$option = $("<option value='#mbox'>" + getMessage("priorityInbox") + "</option>");
+					$openLabelSelect.append($option);
+					$option = $("<option value='#search/l:unread'>" + getMessage("unreadMail") + "</option>");
+					$openLabelSelect.append($option);
+					$option = $("<option value='#all'>" + getMessage("allMail") + "</option>");
+					$openLabelSelect.append($option);
+					$option = $("<option value='--' disabled>" + "--" + "</option>");
+					$openLabelSelect.append($option);
+					
+					account.getLabels(function(params) {
+						if (params.labels) {
+							$.each(params.labels, function(i, label) {
+								var $checkLabelSelectInsideLoop = $("#check_label");
+								var $optionInsideLoop = $("<option value='" + label + "'>" + label + "</option>");
+								$checkLabelSelectInsideLoop.append($optionInsideLoop);
+	
+								var $openLabelSelectInsideLoop = $("#open_label");
+								$optionInsideLoop = $("<option value='#label/" + label + "'>" + label + "</option>");
+								$openLabelSelectInsideLoop.append($optionInsideLoop);
+							});
+						}
+						
+						// set selection
+						$checkLabelSelect.val( account.getMonitorLabels() );
+						$openLabelSelect.val( account.getOpenLabel() );
+					});
+				}
+			});
+			
+			$checkLabelSelect.off("change").on("change", function() {
+				saveEmailSettings();
+				bg.pollAccounts({showNotification:true});
+			});
+
+			$openLabelSelect.off("change").on("change", function() {
+				saveEmailSettings();
+			});
+
+			$("#emails").change();
+
+		}
+		
+		function saveEmailSettings() {
+			var emailSettings = Settings.read("emailSettings");
+			if (!emailSettings) {
+				emailSettings = new Array();
+			}
+			
+			var account = $("#emails option:selected").data("data");
+			emailSettings[account.getAddress()] = {monitorLabel:$("#check_label").val(), openLabel:$("#open_label").val()};
+			Settings.store("emailSettings", emailSettings);
+		}
+
+		function spawnIconRow(value, description) {
+		    var selectionElement = document.getElementById("icon_selection");
+		    selectionElement.innerHTML += '<span><input type="radio" name="icon_set" value="' + value + '" id="icon_set' + value + '" pref="icon_set" /><label for="icon_set' + value + '"><img src="img/icons/' + value + '/not_logged_in.png" /><img src="img/icons/' + value + '/no_new.png" /><img src="img/icons/' + value + '/new.png" /> <small>' + description + '</small></span></label><br />';
+		}
+
+		function requestUserPermission() {
+		    try {
+		        var checkboxUserPermission = document.getElementById('desktopNotification');
+		        if (checkboxUserPermission.checked) {
+		            if (checkUserPermission())
+		                return;
+
+		            if (typeof webkitNotifications != "undefined") {
+		                webkitNotifications.requestPermission(function () {
+		                    var permissionGranted = checkUserPermission();
+		                    checkboxUserPermission.checked = permissionGranted;
+		                });
+		            }
+		        }
+		    } catch (e) { checkboxUserPermission.checked = false; }
+		}
+
+		function checkUserPermission() {
+		    try {
+		        return (webkitNotifications.checkPermission() == 0);
+		    } catch (e) { return false; }
+		  }
+
+
+		function toggleCheckBox(checkboxId, checked) {
+		   if (checked) {
+		      document.getElementById(checkboxId).checked = !checked;
+		   }
+		}
+		
+		function loadVoices() {
+			var $voiceSelect = $("#voice");
+			$voiceSelect.empty();
+			
+			chrome.tts.getVoices(function(voices) {
+				for (var i=0; i<voices.length; i++) {
+					
+					var voiceValue;
+					var voiceLabel;
+					if (voices[i].voiceName == "native" || !voices[i].extensionId) {
+						voiceLabel = getMessage("native");
+						voiceValue = "native";
+					} else {
+						voiceLabel = voices[i].voiceName;
+						voiceValue = voices[i].voiceName + "___" + voices[i].extensionId;
+					}
+					
+					if (voices[i].lang) {
+						//voiceLabel += " (" + voices[i].lang + ")";
+					}
+					var $option = $("<option value='" + voiceValue + "'>" + voiceLabel + "</option>");
+					$voiceSelect.append( $option );
+		      	}
+				
+				$option = $("<option value='--' disabled>--</option>");
+				$voiceSelect.append( $option );
+				$option = $("<option value='addSpeechEngine' style='color:gray'>" + getMessage("addSpeechEngines") + "...</option>");
+				$voiceSelect.append( $option );
+				
+				$voiceSelect.val( Settings.read("voice") );
+		    });
+		}
+
+		function handleAudioFile(fileList) {
+		   var file = fileList[0];
+		   var fileReader = new FileReader();
+
+		   fileReader.onloadend = function () {
+			   try {
+				   localStorage["temp"] = this.result;
+			   } catch(e) {
+				   alert("The file you have chosen is too large, please select a shorter sound alert.");
+				   return;
+			   } finally {		   
+				   localStorage["temp"] = null;
+				   delete localStorage["temp"];
+			   }		
+			   
+		      $('#sn_audio_enc').val(this.result);
+			   
+			   try {
+			      Settings.store("sn_audio_raw", document.getElementById("sn_audio_enc").value);
+			   } catch (e) {
+			      console.error(e);
+				   alert("Could not save notification sound in storage. Please select a smaller audio file!");   
+			   }
+			   
+		   }
+
+		   fileReader.onabort = fileReader.onerror = function () {
+		      switch (this.error.code) {
+		         case FileError.NOT_FOUND_ERR:
+		            alert("File not found!");
+		            break;
+		         case FileError.SECURITY_ERR:
+		            alert("Security error!");
+		            break;
+		         case FileError.NOT_READABLE_ERR:
+		            alert("File not readable!");
+		            break;
+		         case FileError.ENCODING_ERR:
+		            alert("Encoding error in file!");
+		            break;
+		         default:
+		            alert("An error occured while reading the file!");
+		            break;
+		      }
+			  
+		   }
+
+		   fileReader.readAsDataURL(file);
+		}
+		
+		</script>
+		
+   </head>
+
+   <div id="main">
+       <h1 class="title" style="text-shadow:1px 1px 4px #222"><img 
+id="headerLogo" style="vertical-align: middle;padding-bottom:2px;" 
+src="img/icon_48.png" alt="Icon" /> Gmail+</h1>
+       <form>
+       <table style="border:1px solid #eee;box-shadow:3px 3px 5px #555;border-radius:5px;margin:0 auto">
+           <tr>
+               <td style="min-width:666px">                
+                   <div style="text-align:right;margin-right:2px"></div>
+               </td>
+           </tr>
+           <tr>
+		   <td  style="padding: 0">
+			   <ul class="menu">
+				   <li><a href="javascript:showContent(0)" class="active" msg="notifications">Notifications</a></li>
+				   <li><a href="javascript:showContent(1)" msg="general">General</a></li>
+				   <li><a href="javascript:showContent(2)" msg="accounts">Accounts</a></li>
+				   <li><a href="javascript:showContent(3)" msg="display">Display</a></li>
+			   </ul>
+			   <div id="content_0" class="content">
+					<fieldset class="options">
+						<legend><input type="checkbox" id="soundNotification" pref="soundNotification"> <label class="section" for='soundNotification' msg="notificationSound">Sound notifications</label></legend>
+						<div class="subOptions">
+							<div class="nowrap"><span msg="sound">sssound</span>: <select id="sn_audio" pref="sn_audio"><option id="sn_audio_0" value="chime.ogg" msg="chime">ccchime</option><option id="sn_audio_1" value="ding.ogg" msg="ding">ddDing</option><option id="sn_audio_c" value="custom" msg="custom">Custom</option></select> <span class="rangeLabel" msg="volume">vol</span>: <input id="notificationSoundVolume" pref="notificationSoundVolume" type="range"> <a id="playNotificationSound" href="javascript:;" onclick="bg.playNotificationSound()" title="Play notification sound" style="margin-left:5px;border: 0"><img src="img/play.png" alt="Play" /></a></div>
+							<div><input type="file" id="sn_audio_src" accept="audio/*" onchange="handleAudioFile(this.files)" /> <input type="hidden" id="sn_audio_enc" pref="sn_audio_raw"/></div>
+						</div>
+					</fieldset>
+
+					<fieldset class="options">
+						<legend><input type="checkbox" id="voiceNotification" pref="voiceNotification"> <label class="section" for='voiceNotification' msg="notificationTextToSpeech">Voice notifications</label></legend>
+						<div class="subOptions">
+							<div><span msg="speechEngine">vvoice</span>: <select id="voice" pref="voice"></select> <a id="playVoice" href="javascript:;" title="Play" style="margin-left:3px;border: 0"><img src="img/play.png" alt="Play" /></a>
+							<div style="margin:7px;padding:5px;border:1px solid #ddd;border-radius:5px">
+								<span class="rangeLabel" msg="volume">vol</span>: <input id="voiceSoundVolume" pref="voiceSoundVolume" type="range"> <span class="rangeLabel" msg="pitch">pitch</span>: <input id="pitch" pref="pitch" type="range" min=0 max=2 step="0.1"> <span class="rangeLabel" msg="rate">rate</span>: <input id="rate" pref="rate" type="range" min="0.1" max="4" step="0.1" msgTitle="rateTitle"></div>
+							</div>
+							<div><input type="checkbox" id="voiceNotificationOnlyIfIdle" pref="voiceNotificationOnlyIfIdle" /> <label for="voiceNotificationOnlyIfIdle" msg="voiceNotificationOnlyIfIdle" msgToolTip="voiceNotificationOnlyIfIdleTooltip">Only if you're away from your computer for atleast</label> <select id="voiceNotificationOnlyIfIdleInterval" pref="voiceNotificationOnlyIfIdleInterval"><option value="15" msg="Xseconds" msgarg1="15">15 seconds</option><option value="30" msg="Xseconds" msgarg1="30">30 seconds</option><option value="60" msg="Xminute" msgarg1="1">1 minute</option><option value="120" msg="Xminutes" msgarg1="2">2 minutes</option></select></div>
+							<div><label msg="spokenWordsLimit">limit words</label>: <select pref="spokenWordsLimit" msgToolTip="spokenWordsLimitToolTip"><option msg="summary" value="summary">summary</option><option msg="paragraph" value="paragraph">paragraph</option><option msg="wholeEmail" value="wholeEmail">wholeEmail</option></select></div>
+							<div><input type="checkbox" id="hearSubject" pref="hearSubject" /> <label for="hearSubject" msg="hearEmailSubject">Hear email subject</label></div>
+							<div><input type="checkbox" id="hearMessage" pref="hearMessage" /> <label for="hearMessage" msg="hearEmailMessage">Hear email message</label></div>
+							<!--div><input type="checkbox" id="languageDetection" origins="languageDetection"> <label for="languageDetection" msg="enableLanguageDetection" msgToolTip="enableLanguageDetectionToolTip">Enable language detection</label></div-->
+						</div>
+					</fieldset>
+
+					<fieldset class="options">
+						<legend><input type="checkbox" id="desktopNotification" pref="desktopNotification"> <label class="section" for='desktopNotification' msg="showDesktopNotifications">Desktop notifications</label></legend>
+						<div class="subOptions">
+							<div>
+								<input type="radio" id="standardNotification" name="notificationWindowType" pref="notificationWindowType" value="standard" /> <label for="standardNotification" msg="standardNotification">standardNotification</label>
+								<br>
+								<input type="radio" id="advancedNotification" name="notificationWindowType" pref="notificationWindowType" value="advanced" /> <label for="advancedNotification" msg="advancedNotification">advancedNotification</label> <a id="testOutAdvancedNotification" style="opacity:1" href="javascript:;" msg="advancedNotificationTryItOut" msgToolTip="advancedNotificationTryItOutInstructions">Test it out</a>
+							</div>
+							<div><input type="checkbox" id="showEmailAccount" pref="showEmailAccount" /> <label for="showEmailAccount" msg="showEmailAccount">showEmailAccount</label></div>
+						    <div><input type="checkbox" id="showNotificationsForOlderDateEmails" pref="showNotificationsForOlderDateEmails" /> <label for="showNotificationsForOlderDateEmails" msg="showNotificationsForOlderDateEmails">showNotificationsForOlderDateEmails</label></div>
+							<div>
+			                  <span msg="closeAfterX">Close after</span>:
+						      <select id="dn_timeout" pref="dn_timeout">
+						          <option id="dn_timeout_3000" value="3000" msg="Xseconds" msgarg1="3">3 seconds</option>
+						          <option id="dn_timeout_15000" value="15000" msg="Xseconds" msgarg1="15">15 seconds</option>
+						          <option id="dn_timeout_60000" value="60000" msg="Xminute" msgarg1="1">1 minute</option>
+						          <option id="dn_timeout_900000" value="900000" msg="Xminutes" msgarg1="15">15 minutes</option>
+						          <option id="dn_timeout_3600000" value="3600000" msg="Xhour" msgarg1="1">1 hour</option>
+						          <option id="dn_timeout_18000000" value="18000000" msg="Xhours" msgarg1="5">5 hours</option>
+						          <option id="dn_timeout_0" value="0" msg="never">Never</option>
+						      </select>
+							</div>
+						</div>
+					</fieldset>
+
+					<input type="checkbox" id="animateButtonIcon" class="singleOption" pref="animateButtonIcon" /> <label for="animateButtonIcon" msg="showIconAnimation" msgToolTip="showIconAnimationToolTip">showi con</label>
+				
+					<fieldset class="options">
+						<legend><input type="checkbox" id="showContactPhoto" pref="showContactPhoto"/> <label for="showContactPhoto" msg="showContactPhoto" msgToolTip="showContactPhotoToolTip">showContactPhoto</label></legend>
+						<div class="subOptions">
+							<div msgToolTip="fetchContactsIntervalToolTip">
+				                  <span msg="fetchContactsEvery">Fetch contacts every</span>
+							      <select id="fetchContactsInterval" pref="fetchContactsInterval">
+							          <option value="24" msg="Xdays" msgarg1="1">1 day</option>
+							          <option value="48" msg="Xdays" msgarg1="2">15 seconds</option>
+							          <option value="168" msg="Xdays" msgarg1="7">1 minute</option>
+							          <option value="336" msg="Xdays" msgarg1="14">15 minutes</option>
+							          <option value="744" msg="Xdays" msgarg1="31">31 hour</option>
+							          <option value="9999999" msg="never">never</option>
+							      </select>
+							</div>
+							<div style="color:gray;font-size:10px">
+								<span msg="grantedTo">Granted to</span>: <span id="emailsGrantedPermissionToContacts"></span> <a id="grantAccessAgain" href="javascript:;" msg="grantAccessAgain">Grant access again</a>
+							</div>
+						</div>
+					</fieldset>
+
+					<div id="runInBackgroundWrapper">
+						<input type="checkbox" id="runInBackground" class="singleOption" pref="runInBackground" /> <label for="runInBackground" msg="runInBackground" msgToolTip="runInBackgroundToolTip">runin backgrojd</label>
+						<div id="backgroundAppsWarning" class="hide">
+							<ol>
+								<li msg="runInBackgroundWarning1">Please read carefully aboutttt <a target="_blank" href="http://support.google.com/chrome/bin/answer.py?answer=1184722" msg="runInBackgroundWarning1b">background appssss</a></li>
+								<li msg="runInBackgroundWarning2">If you disabled background apps in Chrome you can reeeee-enable them by reading the <a target="_blank" href="http://support.google.com/chrome/bin/answer.py?answer=1184722" msg="runInBackgroundWarning2b">last clickable section</a></li>
+								<li msg="runInBackgroundWarning3">You might have to use theeee <a target="_blank" href="http://support.google.com/mail/bin/answer.py?answer=8494" msg="runInBackgroundWarning3b">stay signed innnn</a> from the Gmaillll login page</li>
+							</ol>
+						</div>
+					</div>
+			   </div>
+			   <div id="content_1" class="content hide">
+					<div>
+						<label msg="language"></label>: <select id="languages" pref="language">
+							<option value="ar">‫العربية</option>
+							<option value="bg">български</option>
+							<option value="ca">català</option>
+							<option value="cs">čeština</option>
+							<option value="hr">Hrvatski</option>
+							<option value="da">dansk</option>
+							<option value="de">Deutsch</option>
+							<option value="et">eesti</option>
+							<option value="en">English</option>
+							<option value="en-GB">English (UK)</option>
+							<option value="es">español</option>
+							<option value="es-419">español (América latina)</option>
+							<option value="fr">Français</option>
+							<option value="el">Ελληνικά</option>
+							<option value="he">עברית</option>
+							<option value="hi">हिंदी</option>
+							<option value="hu">Magyar</option>
+							<option value="it">Italiano</option>
+							<option value="lv">latviešu</option>
+							<option value="lt">lietuvių</option>
+							<option value="hu">magyar</option>
+							<option value="nl">Nederlands</option>
+							<option value="no">Norsk</option>
+							<option value="pl">polski</option>
+							<option value="pt-BR">português (Brasil)</option>
+							<option value="pt-PT">português (Portugal)</option>
+							<option value="ro">Română</option>
+							<option value="fi">Suomi</option>
+							<option value="sv">Svenska</option>
+							<option value="ru">pусский</option>
+							<option value="sr">Српски</option>
+							<option value="sk">Slovenčina</option>
+							<option value="sl">Slovenščina</option>
+							<option value="sv">Svenska</option>
+							<option value="th">Thai</option>
+							<option value="tr">Türkçe</option>
+							<option value="uk">Українська</option>
+							<option value="vi">Tiếng Việt</option>
+							<option value="ja">日本語</option>
+							<option value="zh-CN">简体中文</option>
+							<option value="zh-TW">繁體中文</option>
+							<option value="ko">한국어</option>
+						</select>
+					</div>
+					<br>
+					<div>
+						<input type="checkbox" id="showfull_read" pref="showfull_read" />
+						<label for="showfull_read" msg="previewingMarksAsRead" msgToolTip="previewingMarksAsReadToolTip">Previewing marks as read</label>
+					</div>
+					<div><input type="checkbox" id="archive_read" pref="archive_read" /> <label for="archive_read" msg="archive_read" msgToolTip="archive_readToolTip">Archive marks as read</label></div>
+					<div><input type="checkbox" id="replyingMarksAsRead" pref="replyingMarksAsRead" /> <label for="replyingMarksAsRead" msg="replyingMarksAsRead">replyingMarksAsRead</label></div>
+				   	<br>
+					<div>				   	
+				   		<input type="checkbox" id="24hourMode" pref="24hourMode"/> <label for='24hourMode' msg="24hourMode" msgToolTip="24hourModeTitle">24 Hour</label>
+				   	</div>
+					<div>				   	
+				   		<input type="checkbox" id="mailtoLinks" origins="mailtoLinks" /> <label for="mailtoLinks" msg="mailtoLinks" msgToolTip="mailtoLinksToolTip">Open mailto links with Gmail</label> <span style="font-style:italic;color:gray">(Note: Chrome settings can do this also now! <a target="_blank" href="http://support.google.com/chrome/bin/answer.py?answer=1382847">Read more</a>)</span>
+				   	</div>
+				   	<div>
+				   		<input type="checkbox" id="open_tabs" pref="open_tabs" /> <label for="open_tabs" msg="openComposeInTab" msgToolTip="openComposeInTabToolTip">Open compose in tab</label>
+				   	</div>
+				   	<div>
+				   		<input type="checkbox" id="hide_count" pref="hide_count" /> <label for="hide_count" msg="hideUnreadCount" msgToolTip="hideUnreadCountToolTip">Hide unread mail count</label>
+				   	</div>
+			   </div>
+			   <div id="content_2" class="content hide">
+			   		<br>
+			   		<span msg="autoDetectAccounts">auto detct...</span> 
+			   		<br>		   	
+				   <!--p>
+					   <select id="accounts"></select><br />
+					   <a href="javascript:add_account()" title="Add a new account">Add</a> | <a href="javascript:remove_account()" title="Remove selected account">Remove</a>
+				   </p-->	
+	               
+	               <br>	               
+	               <fieldset id="emailsSettings" class="options selected">
+		               <legend><span msg="email">Email</span> <select id="emails"><option msg="signInToYourAccount"></option></select></legend>
+	
+						<div style="float:left">
+					   		<label style="vertical-align:top" msg="monitorThisLabel">Monitor this label</label>:
+					   		<br>
+					   		<div id="multipleSelectionInfo" style="margin-top:5px;color:gray;font-style:italic;font-size:11px;vertical-align:top;white-space: normal;max-width:130px;display: inline-block;">hold control</div>
+					   	</div>
+					   	<div style="float:left">
+					   		<select id="check_label" multiple style="height:160px;padding: 2px;"></select>
+					   	</div>		               	
+		               	<div style="clear:left">
+		               		<br>
+					   		<label msg="openThisLabel">Open this label</label>:
+					   		<select id="open_label"></select>
+					   	</div>					   	
+	               </fieldset>
+	               
+				   <br>
+				   <label msg="pollingInterval" msgToolTip="pollingIntervalTooltip">Polling interval</label>:  
+				   <select id="poll" pref="poll">
+				       <option id="poll_15000" value="15000" msg="Xseconds" msgarg1="15">15 seconds</option>
+				       <option id="poll_30000" value="30000" msg="Xseconds" msgarg1="30">30 seconds</option>
+				       <option id="poll_60000" value="60000" msg="Xminute" msgarg1="1">1 minute</option>
+				       <option id="poll_300000" value="300000" msg="Xminutes" msgarg1="5">5 minutes</option>
+				       <option id="poll_900000" value="900000" msg="Xminutes" msgarg1="15">15 minutes</option>
+				       <option id="poll_1800000" value="1800000" msg="Xminutes" msgarg1="30">30 minutes</option>
+				       <option id="poll_3600000" value="3600000" msg="Xhour" msgarg1="1">1 hour</option>
+				       <option id="poll_7200000" value="7200000" msg="Xhours" msgarg1="2">2 hours</option>
+				       <option id="poll_18000000" value="18000000" msg="Xhours" msgarg1="5">5 hours</option>
+				   </select>
+				   <br>
+	               <input type="checkbox" id="check_gmail_off" pref="check_gmail_off" /> <label for="check_gmail_off" msg="turnOffRegularGmailChecking">Turn off regular Gmail checking</label>
+				   <br><br>
+			   		<span msg="ignoreTheseAccounts">Ignore</span>:
+			   		<br>
+			   		<span style="color:gray;font-size:10px"><span msg="commaSeparatedEmails">commma.a.a.</span> <span>user@gmail.com, 
+nobody@sabayonlinux.org</span></span>
+			   		<br>
+			   		<textarea pref="ignoreEmails" style="width:350px;font-size:12px"></textarea>
+               		<!--
+				   <br /><input type="checkbox" id="check_priority" onclick="toggleCheckBox('check_all', this.checked)" /> <label for="check_priority"><strong>Check priority mail</strong></label> <a title="Enable this setting to only check for unread priority mail" style="cursor: help">?</a>
+                   <br /><input type="checkbox" id="is_default" /> <label for="is_default">This is my default account</label> <a title="Your default account will be used when clicking on mailto-links" style="cursor: help">?</a>!-->
+				   <!--<p>
+					   <span><strong>Label whitelist</strong> <a title="Add all labels here that you want to check for new mail" style="cursor: help">?</a></span>
+					   <select id="labels" multiple style="width: 100%"></select>
+					   <span style="float: right; clear: both;"><a href="javascript:add_label()" title="Add new label to whitelist">Add</a> | <a href="javascript:remove_label()" title="Remove selected label from whitelist">Remove</a></span>
+				   </p>!-->	
+				   <br>
+				   	<button id="pollNow" style="xxxbackground:#eee;xxxwidth: 130px;height: 25px; margin-top:10px" msg="pollNow">Poll now</button>
+				   	
+			   </div>
+			   <div id="content_3" class="content hide">
+	               <fieldset class="options selected">
+	                  <legend msg="buttonClickAction">Button click action</legend>
+					      <input type="radio" name="preview_setting" id="preview_setting0" pref="preview_setting" value="0" /> <label for="preview_setting0" msg="openGmailTab" msgToolTip="openGmailTabToolTip">open gmail tab</label>
+					      <br />
+					      <input type="radio" name="preview_setting" id="preview_setting1" pref="preview_setting" value="1" /> <label for="preview_setting1" msg="openPopupPreviewIfUnread" msgToolTip="openPopupPreviewIfUnreadToolTip">openPopupPreviewIfUnread</label>
+					      <br />
+					      <input type="radio" name="preview_setting" id="preview_setting2" pref="preview_setting" value="2" /> <label for="preview_setting2" msg="openPopupPreview" msgToolTip="openPopupPreviewToolTip">openPopupPreview</label>
+	               </fieldset>
+	               <br>
+	               <fieldset class="options selected">
+	               		<legend msg="icon">Icon</legend>
+					   <div id="icon_selection">
+					   		<div style="float:left">
+						   		<input type="radio" name="icon_set" value="set1" id="icon_set1" pref="icon_set" /><label for="icon_set1"><img src="img/icons/set1/not_logged_in.png" /><img src="img/icons/set1/no_new.png" /><img src="img/icons/set1/new.png" /> <small>Default</small></label><br />
+						   		<input type="radio" name="icon_set" value="set2" id="icon_set2" pref="icon_set" /><label for="icon_set2"><img src="img/icons/set2/not_logged_in.png" /><img src="img/icons/set2/no_new.png" /><img src="img/icons/set2/new.png" /> <small>Default Grey</small></label><br />
+						   		<input type="radio" name="icon_set" value="set3" id="icon_set3" pref="icon_set" /><label for="icon_set3"><img src="img/icons/set3/not_logged_in.png" /><img src="img/icons/set3/no_new.png" /><img src="img/icons/set3/new.png" /> <small>Default White</small></label><br />
+						   		<input type="radio" name="icon_set" value="set11" id="icon_set11" pref="icon_set" /><label for="icon_set11"><img src="img/icons/set11/not_logged_in.png" /><img src="img/icons/set11/no_new.png" /><img src="img/icons/set11/new.png" /> <small>Native</small></label><br />
+						   		<input type="radio" name="icon_set" value="set12" id="icon_set12" pref="icon_set" /><label for="icon_set12"><img src="img/icons/set12/not_logged_in.png" /><img src="img/icons/set12/no_new.png" /><img src="img/icons/set12/new.png" /> <small>Native Grey</small></label><br />
+						   		<input type="radio" name="icon_set" value="set8" id="icon_set8" pref="icon_set" /><label for="icon_set8"><img src="img/icons/set8/not_logged_in.png" /><img src="img/icons/set8/no_new.png" /><img src="img/icons/set8/new.png" /> <small>Gmail Glossy</small></label><br />
+						   		<input type="radio" name="icon_set" value="set9" id="icon_set9" pref="icon_set" /><label for="icon_set9"><img src="img/icons/set9/not_logged_in.png" /><img src="img/icons/set9/no_new.png" /><img src="img/icons/set9/new.png" /> <small>Gmail Mini</small></label><br />
+						   	</div>
+					   		<div style="float:left;margin-left:40px">
+						   		<input type="radio" name="icon_set" value="set10" id="icon_set10" pref="icon_set" /><label for="icon_set10"><img src="img/icons/set10/not_logged_in.png" /><img src="img/icons/set10/no_new.png" /><img src="img/icons/set10/new.png" /> <small>Gmail Monochrome</small></label><br />
+						   		<input type="radio" name="icon_set" value="set4" id="icon_set4" pref="icon_set" /><label for="icon_set4"><img src="img/icons/set4/not_logged_in.png" /><img src="img/icons/set4/no_new.png" /><img src="img/icons/set4/new.png" /> <small>Alternative 1</small></label><br />
+						   		<input type="radio" name="icon_set" value="set5" id="icon_set5" pref="icon_set" /><label for="icon_set5"><img src="img/icons/set5/not_logged_in.png" /><img src="img/icons/set5/no_new.png" /><img src="img/icons/set5/new.png" /> <small>Alternative 2</small></label><br />
+						   		<input type="radio" name="icon_set" value="set6" id="icon_set6" pref="icon_set" /><label for="icon_set6"><img src="img/icons/set6/not_logged_in.png" /><img src="img/icons/set6/no_new.png" /><img src="img/icons/set6/new.png" /> <small>Chromified Classic</small></label><br />
+						   		<input type="radio" name="icon_set" value="set7" id="icon_set7" pref="icon_set" /><label for="icon_set7"><img src="img/icons/set7/not_logged_in.png" /><img src="img/icons/set7/no_new.png" /><img src="img/icons/set7/new.png" /> <small>Chromified Grey</small></label><br />
+						   		<input type="radio" name="icon_set" value="set13" id="icon_set13" pref="icon_set" /><label for="icon_set13"><img src="img/icons/set13/not_logged_in.png" /><img src="img/icons/set13/no_new.png" /><img src="img/icons/set13/new.png" /> <small>OSX</small></label><br />
+						   	</div>
+					   </div>
+				   </fieldset>
+				   <div><input type="checkbox" id="showOptionsButton" pref="showOptionsButton"/> <label for="showOptionsButton" msg="showOptionsButton">showOptionsButton</label></div>
+				   <div><input type="checkbox" id="showLeftColumnWhenPreviewingEmail" pref="showLeftColumnWhenPreviewingEmail"  /> <label for="showLeftColumnWhenPreviewingEmail" msg="showLeftColumnWhenPreviewingEmail">showLeftColumnWhenPreviewingEmail</label></div>
+				   <br>
+					<fieldset id="showButtons" class="options selected" style="xbackground:none">
+						<legend msg="actionButtons" msgToolTip="selectQuickActionButtonsToolTip">ation buttons</legend>
+						
+						<div style="margin-top:5px">
+						<span msg="theme">Theme</span>: <span class="themeWrapper" themeID="original"><input type="radio" name="buttons" id="original" value="original" pref="buttons" /> <label for="original" msg="original">abc</label></span>
+				   		<span class="themeWrapper" themeID="green"><input type="radio" name="buttons" id="green" value="green" pref="buttons" /> <label for="green" msg="green">abc</label> </span>
+				   		<span class="themeWrapper" themeID="dark"><input type="radio" name="buttons" id="dark" value="dark" pref="buttons" /> <label for="dark" msg="dark">def</label> </span>
+				   		<!--span class="themeWrapper" themeID="voythas"><input type="radio" name="buttons" id="voythas" value="voythas" pref="buttons"  /> <label for="voythas" msg="voythas">def</label> <a class="previewTheme" href="javascript:;" msg="preview">Preview</a></span-->
+				   		</div>
+					   		
+					   	<div style="padding:14px 0 7px 0">
+						</div>
+						
+					   	<span class="buttonWrapper"><input type="checkbox" id="showStar" pref="showStar" /> <label for="showStar"><div class="icon star dark" msgTitle="starLinkTitle"></div></label></span>
+					   	<span class="buttonWrapper"><input type="checkbox" id="showArchive" pref="showArchive"  /> <label for="showArchive"><div class="button archive" msgTitle="archiveLink"><div></div></div></label></span>
+					   	<span class="buttonWrapper"><input type="checkbox" id="showSpam" pref="showSpam"  /> <label for="showSpam"><div class="button spam" msgTitle="spamLink"><div></div></div></label></span>
+					   	<span class="buttonWrapper"><input type="checkbox" id="showDelete" pref="showDelete"  /> <label for="showDelete"><div class="button delete" msgTitle="deleteLink"><div></div></div></label></span>
+					   	<span class="buttonWrapper"><input type="checkbox" id="showReply" pref="showReply" /> <label for="showReply"><div class="button reply" msgTitle="reply"><div></div></div></label></span>
+					   	<span class="buttonWrapper"><input type="checkbox" id="showOpen" pref="showOpen" /> <label for="showOpen"><div class="button open" msgTitle="open"><div></div></div></label></span>
+					   	<div style="padding:3px"></div>
+					   	<span class="buttonWrapper"><input type="checkbox" id="showMarkAsRead" pref="showMarkAsRead" " /> <label for="showMarkAsRead"><div class="button markAsRead" msgTitle="readLinkTitle"><div msg="readLinkTitle">mark as readdd</div></div></label></span>
+					   	<span class="buttonWrapper"><input type="checkbox" id="showMarkAsUnread" pref="showMarkAsUnread"  /> <label for="showMarkAsUnread"><div class="button markAsUnread"><div msg="unreadLinkTitle">mark as ureee</div></div></label></span>
+					</fieldset>
+				</div>
+		   </td>
+           </tr>
+       </table>
+       </form>
+       <br><br>
+          </div>
+   </body>
+</html>

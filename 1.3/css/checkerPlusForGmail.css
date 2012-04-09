@@ -1,0 +1,118 @@
+a {text-decoration: none;color: #15c}
+.subject {font-weight:bold;color:#333}
+.overlay {
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(250, 250, 250, 0.9);
+   display: none;
+}
+.loading {
+	opacity:0.7;
+   background-image: url('/img/ajax-loader.gif');
+   background-position: center center;
+   background-repeat: no-repeat;
+   background-size:34px;
+}
+
+.button {xxxbox-shadow: 2px 2px 3px #999;vertical-align:top;border-radius:2px;border:1px solid rgba(0,0,0,.2);display:inline-block;margin:0 0px;padding:4px 12px;background-color:whiteSmoke}
+.button:hover {xxborder:1px solid rgba(0,0,0,.5);opacity:1 !important;cursor:pointer}
+.button:focus {border:1px solid #4d90fe;outline:none}
+.button:hover > div:not(.opacityPatch) {opacity:1}
+.button div {width:21px;height:21px;opacity:0.65;background-repeat:no-repeat}
+.button div[msg] {font-weight:bold;line-height:21px;font-size:11px;font-family:arial,sans-serif;white-space:nowrap;width:auto;background-image:none}
+
+.icon {display:inline-block;opacity:.55;width:21px;height:21px;background-image:url(/img/sprite_black2.png);background-repeat: no-repeat}
+.icon:hover {opacity:1;cursor:pointer}
+
+.optionsIcon {opacity:0.4;background-image: url('/img/options.png');background-position: 3px 3px;background-size: 16px}
+.refresh {background-position:-63px -20px;}
+.close {background-image:url(/img/sprite_black.png) !important;background-position:-118px -117px}
+
+.backToInbox {padding:4px 21px}
+
+#inboxes .button {opacity:0.5}
+
+html.buttonsoriginal .backToInbox div {background-image: url(/img/buttons/original/backToInbox.png);background-position: 0 -2px;width: 26px;background-size: 28px 23px;}
+html.buttonsoriginal .sendPageLink {background-image: url(/img/buttons/original/link.png)}
+html.buttonsoriginal .delete div {background-image:url(/img/buttons/original/trash.png);background-size: 21px 21px;background-position: 0px -1px}
+html.buttonsoriginal .reply div {background-image:url(/img/buttons/original/reply.png);background-size: 21px 21px;background-position: 0px 0px}
+html.buttonsoriginal .open div {background-image:url(/img/buttons/original/open.png);background-size: 18px 18px;background-position: 1px 1px}
+html.buttonsoriginal .archive div {background-image:url(/img/buttons/original/archive.png);background-size: 21px;background-position: 0px 0px}
+html.buttonsoriginal .spam div {background-image:url(/img/buttons/original/spam.png);background-size: 19px;background-position: 0px 1px}
+html.buttonsoriginal .labels div:first-child {background-image:url(/img/buttons/original/labels.png);background-position: 1px 1px;background-size: 19px}
+
+html.buttonsvoythas .backToInbox div {background-image: url(/img/buttons/voythas/backToInbox.png)}
+html.buttonsvoythas .sendPageLink {background-image: url(/img/buttons/voythas/link.png)}
+html.buttonsvoythas .delete div {background-image:url(/img/buttons/voythas/trash.png)}
+html.buttonsvoythas .reply div {background-image:url(/img/buttons/voythas/reply.png)}
+html.buttonsvoythas .open div {background-image:url(/img/buttons/voythas/open.png)}
+html.buttonsvoythas .archive div {background-image:url(/img/buttons/voythas/archive.png)}
+html.buttonsvoythas .spam div {background-image:url(/img/buttons/voythas/spam.png)}
+html.buttonsvoythas .labels div:first-child {background-image:url(/img/buttons/voythas/labels.png)}
+
+html.buttonsgreen  #inboxes .button {opacity:0.9}
+html.buttonsgreen  .button div {color:#088a08}
+
+html.buttonsgreen .backToInbox div {background-image: url(/img/buttons/green/backToInbox.png);background-position: 0 -2px;width: 26px;background-size: 28px 23px;}
+html.buttonsgreen .sendPageLink {background-image: url(/img/buttons/green/link.png)}
+html.buttonsgreen .delete div {background-image:url(/img/buttons/green/trash.png);background-size:19px}
+html.buttonsgreen .reply div {background-image:url(/img/buttons/green/reply.png); background-size:20px; width: 24px;}
+html.buttonsgreen .open div {background-image:url(/img/buttons/green/open.png);background-size: 18px 18px;background-position: 1px 1px}
+html.buttonsgreen .archive div {background-image:url(/img/buttons/green/archive.png);background-size:18px;background-position: 1px 1px;}
+html.buttonsgreen.notif .archive div {background-size:14px !important;background-position: 3px 1px} 
+html.buttonsgreen .spam div {background-image:url(/img/buttons/green/spam.png);background-size:21px}
+html.buttonsgreen .labels div:first-child {background-image:url(/img/buttons/green/labels.png);background-position: 1px 1px;background-size: 19px}
+
+html.buttonsdark .messageArea:hover, html.buttonsdark .address a:hover {background-color:#333}
+
+html.buttonsdark #menu div {background-color: white;border-radius: 5px}
+html.buttonsdark .optionsIcon {opacity:0.6}
+html.buttonsdark .optionsIcon:hover {opacity:1}
+
+html.buttonsdark body {background:black;color:white}
+html.buttonsdark a {color:white}
+html.buttonsdark #title, html.buttonsdark #by {color:white}
+html.buttonsdark .mail .emailDetailsTopRight {background:black}
+html.buttonsdark .mail, html.buttonsdark .mail .author {background:black !important}
+html.buttonsdark .collapsed .mail .author {background:black}
+html.buttonsdark .subject {color:gray}
+html.buttonsdark.notif #inboxes .summary {color:#999}
+html.buttonsdark #fullEmailSubject {color:gray}
+html.buttonsdark .fullEmailShowToCC {background:black;border-color:#555}
+
+html.buttonsdark .button {background-color:gray}
+html.buttonsdark #inboxes .button {background-color:white}
+
+html.buttonsdark .button div {color:black}
+html.buttonsdark #inboxes .button {opacity:0.5}
+html.buttonsdark.notif #inboxes .mail .star {background-color:black}
+
+html.buttonsdark .labelsDropDown {background:black}
+html.buttonsdark .labelsDropDown div:hover {background:gray}
+
+html.buttonsdark .backToInbox div {background-image: url(/img/buttons/original/backToInbox.png);background-position: 0 -2px;width: 26px;background-size: 28px 23px;}
+html.buttonsdark .sendPageLink {background-image: url(/img/buttons/original/link.png)}
+html.buttonsdark .delete div {background-image:url(/img/buttons/original/trash.png);background-size: 21px 21px;background-position: 0px -1px}
+html.buttonsdark .reply div {background-image:url(/img/buttons/original/reply.png);background-size: 21px 21px;background-position: 0px 0px}
+html.buttonsdark .open div {background-image:url(/img/buttons/original/open.png);background-size: 18px 18px;background-position: 1px 1px}
+html.buttonsdark .archive div {background-image:url(/img/buttons/original/archive.png);background-size: 21px;background-position: 0px 0px}
+html.buttonsdark .spam div {background-image:url(/img/buttons/original/spam.png);background-size: 19px;background-position: 0px 1px}
+html.buttonsdark .labels div:first-child {background-image:url(/img/buttons/original/labels.png);background-position: 1px 1px;background-size: 19px}
+
+html.buttonsdark ::-webkit-scrollbar {border:1px solid #ccc}
+html.buttonsdark ::-webkit-scrollbar-thumb {background-color:gray}
+
+.markAsRead {padding:4px 11px}
+
+.star {opacity:0.95;background-image:none;height:19px;width:18px;margin-bottom:-6px;background:url(/img/star4.png)}
+.star:hover, .star.dark {opacity:1;background:url(/img/star-hover4.png)}
+.star.clicked {opacity:1;background:url(/img/star-lit4.png)}
+
+.hugRight {margin-right:-1px}
+
+.labels {height:21px;padding:4px 14px}
+.labels div {display:inline-block}
+.labels div:nth-child(2) {background-image:url(/img/sprite_black2.png);background-position:-42px -84px}

@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <link rel="stylesheet" type="text/css" media="screen" href="css/common.css" />
+   <link rel="stylesheet" type="text/css" media="screen" href="css/checkerPlusForGmail.css" />
+   <style type="text/css">
+   html, body { margin: 0; padding: 0; width: 100%; overflow: hidden; min-height:80px; }
+   body {font-family: arial, sans-serif;font-size: 0.8em}
+   a {cursor:pointer}
+   .unread {font-weight:bold}
+   .messageArea {margin:4px;padding:2px;border-radius:10px;border:1px solid transparent}
+   .author {font-weight:bold}
+   .indicator { border-radius: 0; border: none; }
+   .address {margin-top:-3px;padding-top:1px;}
+   .address div {width: 100%;text-align: center}
+   .address div a {font-weight: bold;font-size: 100%}
+   .actions {position:absolute;bottom:0;right:1px;float:right;text-align:right;padding:2px;background-color:white;opacity:0.85;border-top-left-radius:10px;border-bottom-left-radius:10px}
+   .actions:hover {opacity:1}
+   .actions a, .address a {border-radius:5px;padding:0 7px;border:1px solid transparent}   
+   .address a {border-top:1px solid transparent;border-left:1px solid lightblue;border-bottom:1px solid lightblue;border-right:1px solid lightblue}
+   .actions a:hover {color:black}
+   .actions .sep {color:#ddd}
+   .messageArea.faded {opacity:0.3}
+   .messageArea:hover, .address a:hover {border:1px solid lightblue}
+   .messageArea:hover, .address a:hover {background-color:#F9F9E0}
+   .summary {opacity: 1}
+   #imageArea {width:48px;position:relative;margin-right:6px;padding:1px}
+   #imageArea img {position:absolute;width:48px}
+   .logo {margin-top:-12px}
+   #contactPhoto {display:none}
+   
+   .button {padding:0px 9px}
+   .button.narrow {padding:2px 6px}
+   
+   .star, .star:hover, .star.clicked {background-position: 3px 2px}
+   
+</style>
+   <script type="text/javascript" src="src/jquery.min.js"></script>
+   <script type="text/javascript" src="src/common.js"></script> <!--  must be after settings.js -->
+   <script type="text/javascript" src="src/checkerPlusForGmail.js"></script>
+   <script type="text/javascript" src="src/mailaccount.class.js"></script>
+	<script>
+var mailAccount;
+var bg = chrome.extension.getBackgroundPage();
+var Settings = bg.getSettings();
+var mouseInPopup = false;
+var closeTimeout;
+var hoveredAtleastOnce = false;
+
+function setCloseTimeout() {
+	var timeout = Settings.read("dn_timeout");
+	if (timeout != 0) {
+		closeTimeout = setTimeout(function () {
+			window.close();
+		}, timeout);
+	}
+}
+
+function executeAction(method) {
+	var timer;
+	$(".loading").fadeIn(100);
+	method(function(cbParams) {
+		if (cbParams.error) {
+			if (timer) {
+				clearTimeout(timer);
+			}
+			$("body").html("Sorry, problem completing action (" + cbParams.error + ")");
+		} else {
+			if (window) {
+				window.close();
+			}
+		}
+	});
+
+	if (bg.unreadCount >= 1) {
+		updateBadge(bg.unreadCount-1);
+	}
+
+	// cheat close it even if it doesn't finish (if to short, might actually stop code from executing, that may be bad)
+	timer = setTimeout(window.close, 400);
+}
+
+chrome.extension.onRequest.addListener(function(request, sender, sendResponse) {
+	if (request.name == "addNewNotifications") {
+		if (!mouseInPopup) {
+			location.reload(true);
+		}
+	}
+})
+
+$(document).ready(function () {
+	
+	initButtons();
+	showHideButtons();
+	
+	var lang = pref("language", window.navigator.language);
+	if (lang && (lang.indexOf("ru") != -1 || lang.indexOf("de") != -1)) {
+		$(".button").addClass("narrow");
+	}
+	
+	mailAccount = bg.accountWithNewestMail;
+	
+	// try getting the newest mail
+	var mail = bg.accountWithNewestMail.getNewestMail();
+	if (!mail) {
+		// else get most most recent mail (not the newest because it might have been fetch recently, this shwnotif could be done after a idle etc.)
+		mail = bg.accountWithNewestMail.getMail().first();		
+	}
+
+	$(".inboxLink").text(getMessage("inboxFor", mailAccount.getAddress()));
+	
+	$(".author").replaceWith( mail.generateAuthorsNode() );
+	
+	$(".subject")
+		.html(mail.shortTitle)
+		.attr("title", mail.title)
+		;
+	
+	$(".summary")
+		.html(mail.getLastThreadText().summarize(101))
+		.attr("title", mail.threadText)
+	;
+	
+	setCloseTimeout();
+	
+	$("body").mouseenter(function() {
+		clearTimeout(closeTimeout);
+	}).mouseleave(function() {
+		setCloseTimeout();
+	});
+
+	if (Settings.read("showEmailAccount")) {
+		$("#emailAccount").show();
+	}
+
+	$('body').hover(function () {
+		mouseInPopup = true;
+		var timeout = 200;
+		if (hoveredAtleastOnce) {
+			timeout = 0;
+		} else {
+			bg.ChromeTTS.stop();
+			hoveredAtleastOnce = true;
+		}
+		setTimeout(function() {
+			$('body').find('.actions').slideDown('fast');
+		}, timeout);
+	}, function () {
+		mouseInPopup = false;
+		$(this).find('.actions').slideUp('fast');
+	});
+	
+	$('body').find(".markAsRead").click(function () {
+		executeAction(mail.markAsRead);
+		sendGA(['_trackEvent', "notification", "markAsRead"]);
+	});
+	$('body').find(".delete").click(function () {
+		executeAction(mail.deleteEmail);
+		sendGA(['_trackEvent', "notification", "delete"]);
+	});
+	$('body').find(".archive").click(function () {
+		executeAction(mail.archive);
+		sendGA(['_trackEvent', "notification", "archive"]);
+	});
+	$('body').find(".spam").click(function () {
+		executeAction(mail.markAsSpam);
+		sendGA(['_trackEvent', "notification", "spam"]);
+	});
+	
+	$('body').find(".star").click(function () {
+		$(this).addClass("clicked");
+		mail.star();
+		sendGA(['_trackEvent', "notification", "star"]);
+	});
+
+	$('body').find(".inboxLink").click(function () {
+		mailAccount.openInbox();
+		sendGA(['_trackEvent', "notification", "openInbox"]);
+		window.close();
+	});
+
+	$('body').find(".messageArea").click(function () {
+		$(".actions").hide();
+		mail.open();
+		sendGA(['_trackEvent', "notification", "open"]);
+		window.close();
+	});
+	
+	$(".actions").hover(function() {
+		$(".messageArea").addClass("faded");
+	}, function() {
+		$(".messageArea").removeClass("faded");
+	});
+
+	if (Settings.read("showContactPhoto")) {
+		// contact photo
+		
+		getContactPhoto({mail:mail}, function(params) {
+			if (params.contact) {
+				if (params.error) {
+					$("#logo").show();
+				} else {
+					var showLogoTimeout = null;
+					$("#contactPhoto").on("load", function() {
+						clearTimeout(showLogoTimeout);
+						$("#logo").hide();
+						$("#contactPhoto").fadeIn(100);
+					}).on("error", function() {
+						//$("#logo").hide().attr("src", "img/icon_48.png");
+					});
+					console.log("generatedurl: " + params.generatedURL);
+					$("#contactPhoto").attr("src", params.generatedURL);
+					showLogoTimeout = setTimeout(function() {
+						$("#logo").fadeIn(100);
+					}, 320);
+				}
+			} else {
+				$("#logo").show();
+			}
+		});		
+	} else {
+		$("#logo").show();
+	}
+	
+	var simulateToolTips = SimulateToolTips();
+
+});
+</script>
+</head>
+<body id="body" class="basicNotificationWindow">
+	<div class="vbox">
+		<div id="emailAccount" class="hbox address padded" style="display:none">
+			<div><a class="inboxLink"></a></div>
+		</div>
+		<div class="hbox messageArea">
+			<div id="imageArea" class="hbox">
+				<img id="logo" class="logo hide" src="img/icon_48.png" />
+				<img id="contactPhoto"/>
+			</div>
+			<div class="vbox wide">
+				<div class="hbox sender">
+					<div class="hbox wide padded"><span class="author"></span></div>
+					<!--div class="hbox padded">
+						<label><#= formatDateTime(mail.issued, getMessage("monthsArray").split(",")) #></label>
+					</div-->
+				</div>
+
+				<div class="hbox title">
+					<div class="hbox wide padded"><span class="subject"></span></div>
+				</div>
+
+				<div class="hbox"><div class="summary hbox wide padded"></div></div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="actions hbox hide nowrap">
+		<div class="icon star" msgTitle="starLinkTitle"></div> <div class="button archive hugRight" msgTitle="archiveLink" tabindex=0><div></div></div><div class="button spam hugRight" msgTitle="spamLinkTitle" tabindex=1><div></div></div><div class="button delete" msgTitle="delete" tabindex=2><div></div></div> <div class="button markAsRead" tabindex=3><div msg="readLinkTitle">mark as readdd</div></div>
+	</div>
+	
+	<div class="overlay loading"></div>
+</body>
+</html>
