@@ -1,0 +1,22 @@
+This extension is currently in beta development. The purpose is to give users a full featured open source (GPLv3) Gmail extension for Google Chrome and Chromium. 
+
+This extension is based on features from popular extensions such as: Mail Checker Plus, Mail Checker Minus, Checker Plus.
+
+Some Current Features are:
+
+*Themeable UI
+*Sound on new Mail
+*Button Options: Delete, Reply, Mark as Read, Mark as Unread, Mark as Spam, Compose New Mail, Archive, Open Message
+*Desktop Alerts - Can be enabled/disabled -Same options as in the Button UI
+*Sync Contact Pictures - Displays Contacts Google+ picture in message header
+*Monitor multiple mail labels for  new mail
+*Ignore user specified labels
+*Show unread mail count in button (can be turned off)
+
+There are no limitations or "donate only" features in this extension, everything is made available for free and without any expectations of the end users spending their cash :)
+
+However if you are feeling generous and would like to donate, feel free to send PayPal to linuxsociety@gmail.com  I appreciate it, but remember you can use this for free as long as you need to and you never HAVE to spend a dime if you don't wish to!
+
+COPYING
+
+Since this extension is provided by GPLv3 you may use any of this code for your own personal use and distribute it as long as you abide by GPL licensing. See the accompanying LICENSE file for more information on GPL version 3. 
